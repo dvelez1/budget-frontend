@@ -61,6 +61,15 @@
                       <h6>Budget</h6>
                       <input type="text" class="form-control" id="txtBudget" />
                     </div>
+                    <div>
+                      <button
+                        class="btn btn-success btn-sm"
+                        v-on:click="GetMonthlyExpenses(14)"
+                        type="button"
+                      >
+                        Search
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -72,19 +81,26 @@
                   <div class="card-body">
                     <h5 class="card-title text-center">Budget</h5>
                     <hr />
-                    <div class="row">
-                      <div class="col md-9">
+                    <!--  -->
+                    <ul class="list-group">
+                      <li
+                        v-for="(monthlyExpense, index) of listMonthlyExpense"
+                        :key="index"
+                        class="list-group-item d-flex justify-content-between"
+                      >
+                        <!--  -->
+
                         <div>
-                          <label>Description of the item.</label>
+                          {{ monthlyExpense.montlyExpensesId }} -
+                          {{ monthlyExpense.masExpensesDescription }}
                         </div>
-                      </div>
-                      <div class="col md-3">
                         <div class="d-flex justify-content-between">
                           <div>
                             <input
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Budget"
+                              v-model="monthlyExpense.budget"
                             />
                           </div>
                           <div>
@@ -92,6 +108,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Payment"
+                              v-model="monthlyExpense.payment"
                             />
                           </div>
                           <div>
@@ -99,11 +116,18 @@
                               class="btn btn-success btn-sm"
                               type="button"
                               value="Save"
+                              v-on:click="
+                                UpdateMonthlyExpenses(
+                                  monthlyExpense,
+                                  monthlyExpense.montlyExpensesId
+                                )
+                              "
                             />
                           </div>
                         </div>
-                      </div>
-                    </div>
+                        <!--  -->
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -181,7 +205,7 @@
                       </div>
                       <div class="col-sm-1">
                         <input
-                          class="btn btn-primary  btn-sm float-end"
+                          class="btn btn-primary btn-sm float-end"
                           type="button"
                           value="Add"
                         />
@@ -225,8 +249,75 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Budget",
+  data() {
+    return {
+      masMonthlyExpense: {
+        masMonthlyExpensesId: "",
+        Year: "",
+        Month: "",
+        Income: "",
+        BiweeklyNumber: "",
+      },
+      monthlyExpense: {
+        montlyExpensesId: "",
+        masExpensesId: "",
+        masMonthlyExpensesId: "",
+        masExpensesDescription: "",
+        payment: "",
+        budget: "",
+      },
+      listMonthlyExpense: [],
+      loading: false,
+    };
+  },
+  methods: {
+    GetMasMonthlyExpenses() {
+     
+    },
+
+    GetMonthlyExpenses(masMonthlyExpensesId) {
+      this.loading = true;
+      axios
+        .get("https://localhost:44359/api/MonthlyExpenses/", {
+          params: {
+            masMonthlyExpensesId: masMonthlyExpensesId,
+          },
+        })
+        .then((response) => {
+          this.loading = false;
+          this.listMonthlyExpense = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    UpdateMonthlyExpenses(monthlyExpense, montlyExpensesId) {
+      console.log(monthlyExpense);
+      console.log(montlyExpensesId);
+
+      this.loading = true;
+      axios
+        .put("https://localhost:44359/api/MonthlyExpenses/" + montlyExpensesId,monthlyExpense)
+        .then((response) => {
+            console.log(response);
+          this.loading = false;
+          this.GetMonthlyExpenses(14);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    
+  },
+  created: function () {
+    // Fill dropownList
+  },
 };
 </script>
 

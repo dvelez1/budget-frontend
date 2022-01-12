@@ -130,24 +130,21 @@
             <!-- Budget -> MonthlyExpenses -->
             <div class="row">
               <div class="col-md-6 mt-2">
-
                 <div class="card">
                   <div class="card-body">
-                            <div class="row g-2">
-                              <div class="col-sm-11">
-                                <h5 class="card-title text-center">
-                                  Budget
-                                </h5>
-                              </div>
-                              <div class="col-sm-1">
-                                <input
-                                  class="btn btn-primary btn-sm float-end"
-                                  type="button"
-                                  value="Add"
-                                />
-                              </div>
-                            </div>
-                             <hr />
+                    <div class="row g-2">
+                      <div class="col-sm-11">
+                        <h5 class="card-title text-center">Budget</h5>
+                      </div>
+                      <div class="col-sm-1">
+                        <input
+                          class="btn btn-primary btn-sm float-end"
+                          type="button"
+                          value="Add"
+                        />
+                      </div>
+                    </div>
+                    <hr />
                     <!--  -->
                     <ul class="list-group">
                       <li
@@ -164,7 +161,7 @@
                         <div class="d-flex justify-content-between">
                           <div>
                             <input
-                              type="text"
+                              type="number"
                               class="form-control form-control-sm"
                               placeholder="Budget"
                               v-model="monthlyExpense.budget"
@@ -173,7 +170,7 @@
                           &nbsp;
                           <div>
                             <input
-                              type="text"
+                              type="number"
                               class="form-control form-control-sm"
                               placeholder="Payment"
                               v-model="monthlyExpense.payment"
@@ -202,100 +199,84 @@
               </div>
               <!-- CREDIT EXPENSES -->
               <div class="col-md-6 mt-2">
-               
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row g-2">
+                      <div class="col-sm-11">
+                        <h5 class="card-title text-center">Credit Expenses</h5>
+                      </div>
+                      <div class="col-sm-1">
+                        <input
+                          class="btn btn-primary btn-sm float-end"
+                          type="button"
+                          value="Add"
+                        />
+                      </div>
+                    </div>
 
-                        <div class="card">
-                          <div class="card-body">
-                            <div class="row g-2">
-                              <div class="col-sm-11">
-                                <h5 class="card-title text-center">
-                                  Credit Expenses
-                                </h5>
-                              </div>
-                              <div class="col-sm-1">
-                                <input
-                                  class="btn btn-primary btn-sm float-end"
-                                  type="button"
-                                  value="Add"
-                                />
-                              </div>
-                            </div>
-
-                            <hr />
-                            <!--  -->
-                            <ul class="list-group">
-                              <li
-                                v-for="(
-                                  manualMonthlyCreditExpense, index
-                                ) of listmanualMonthlyCreditExpense"
-                                :key="index"
-                                class="
-                                  list-group-item
-                                  d-flex
-                                  justify-content-between
-                                "
-                              >
-                                <div>
-                                  {{
-                                    manualMonthlyCreditExpense.manualMonthlyCreditExpensesId
-                                  }}
-                                  -
-                                  {{ manualMonthlyCreditExpense.description }}
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                  <div>
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-sm"
-                                      placeholder="Cost"
-                                      v-model="manualMonthlyCreditExpense.cost"
-                                    />
-                                  </div>
-                                  &nbsp;
-                                  <div>
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-sm"
-                                      placeholder="Payment"
-                                      v-model="
-                                        manualMonthlyCreditExpense.payment
-                                      "
-                                    />
-                                  </div>
-                                  &nbsp;
-                                  <div>
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-sm"
-                                      placeholder="difference"
-                                    />
-                                  </div>
-                                  &nbsp;
-                                  <div>
-                                    <input
-                                      class="btn btn-success btn-sm"
-                                      type="button"
-                                      value="Save"
-                                      v-on:click="
-                                        UpdateMonthlyExpenses(
-                                          monthlyExpense,
-                                          monthlyExpense.montlyExpensesId
-                                        )
-                                      "
-                                    />
-                                  </div>
-                                </div>
-                                <!--  -->
-                              </li>
-                            </ul>
+                    <hr />
+                    <!--  -->
+                    <ul class="list-group">
+                      <li
+                        v-for="(
+                          manualMonthlyCreditExpense, index
+                        ) of listmanualMonthlyCreditExpense"
+                        :key="index"
+                        class="list-group-item d-flex justify-content-between"
+                      >
+                        <div>
+                          {{
+                            manualMonthlyCreditExpense.manualMonthlyCreditExpensesId
+                          }}
+                          -
+                          {{ manualMonthlyCreditExpense.description }}
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm"
+                              placeholder="Cost"
+                              v-model="manualMonthlyCreditExpense.cost"
+                            />
+                          </div>
+                          &nbsp;
+                          <div>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm"
+                              placeholder="Payment"
+                              v-model="manualMonthlyCreditExpense.payment"
+                            />
+                          </div>
+                          &nbsp;
+                          <div>
+                            <input
+                              type="number"
+                              class="form-control form-control-sm"
+                              placeholder="difference"
+                            />
+                          </div>
+                          &nbsp;
+                          <div>
+                            <input
+                              class="btn btn-success btn-sm"
+                              type="button"
+                              value="Save"
+                              v-on:click="
+                                UpdateMonthlyExpenses(
+                                  monthlyExpense,
+                                  monthlyExpense.montlyExpensesId
+                                )
+                              "
+                            />
                           </div>
                         </div>
-    
-
-
-
-                    
-            
+                        <!--  -->
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- ADDITIONAL EXPENSES -->
@@ -303,20 +284,20 @@
               <div class="col-md-6 mt-2">
                 <div class="card">
                   <div class="card-body">
-                                                <div class="row g-2">
-                              <div class="col-sm-11">
-                                <h5 class="card-title text-center">
-                                  Additional Expenses
-                                </h5>
-                              </div>
-                              <div class="col-sm-1">
-                                <input
-                                  class="btn btn-primary btn-sm float-end"
-                                  type="button"
-                                  value="Add"
-                                />
-                              </div>
-                            </div>
+                    <div class="row g-2">
+                      <div class="col-sm-11">
+                        <h5 class="card-title text-center">
+                          Additional Expenses
+                        </h5>
+                      </div>
+                      <div class="col-sm-1">
+                        <input
+                          class="btn btn-primary btn-sm float-end"
+                          type="button"
+                          value="Add"
+                        />
+                      </div>
+                    </div>
                     <hr />
                     <ul class="list-group">
                       <li
@@ -333,7 +314,7 @@
                         <div class="d-flex justify-content-between">
                           <div>
                             <input
-                              type="text"
+                              type="number"
                               class="form-control form-control-sm"
                               placeholder="Budget"
                               v-model="manualMonthlyExpense.budget"
@@ -342,7 +323,7 @@
                           &nbsp;
                           <div>
                             <input
-                              type="text"
+                              type="number"
                               class="form-control form-control-sm"
                               placeholder="Payment"
                               v-model="manualMonthlyExpense.payment"
@@ -354,6 +335,7 @@
                               class="btn btn-success btn-sm"
                               type="button"
                               value="Save"
+                              v-on:click="UpdatetManualMonthlyExpenses(manualMonthlyExpense.manualMonthlyExpensesId,manualMonthlyExpense)"
                             />
                           </div>
                         </div>
@@ -547,9 +529,6 @@ export default {
         });
     },
     UpdateMonthlyExpenses(monthlyExpense, montlyExpensesId) {
-      console.log(monthlyExpense);
-      console.log(montlyExpensesId);
-
       this.loading = true;
       axios
         .put(
@@ -557,9 +536,8 @@ export default {
           monthlyExpense
         )
         .then((response) => {
-          console.log(response);
           this.loading = false;
-          this.GetMonthlyExpenses(this.masMonthlyExpense.MasMonthlyExpensesId);
+          this.monthlyExpense = response.data;
         })
         .catch((error) => {
           console.error(error);
@@ -579,6 +557,20 @@ export default {
         .then((response) => {
           this.loading = false;
           this.listmanualMonthlyExpense = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    UpdatetManualMonthlyExpenses(manualMonthlyExpensesId,manualMonthlyExpense) {
+      this.loading = true;
+      axios
+        .put(
+          "https://localhost:44359/api/ManualMonthlyExpenses/" + manualMonthlyExpensesId,manualMonthlyExpense)
+        .then((response) => {
+          this.loading = false;
+          this.manualMonthlyExpense = response.data;
         })
         .catch((error) => {
           console.error(error);

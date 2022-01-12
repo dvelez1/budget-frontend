@@ -17,12 +17,37 @@
                   <div class="card-body">
                     <h5 class="card-title text-center">Biweekly Selection</h5>
                     <hr />
-                    <h6>Year</h6>
-                    <select class="form-select">
+                    <!--<h6>Year</h6>
+                     <select class="form-select">
                       <option selected>Select Year</option>
                       <option value="1">2021</option>
                       <option value="2">2022</option>
-                    </select>
+                    </select> -->
+                    <div class="form-group">
+                      <label for="year"><h6>Year</h6></label>
+                      <select
+                        class="form-control"
+                        v-model="masMonthlyExpense.Year"
+                      >
+                        <option
+                          :value="year.text"
+                          v-for="year in Years"
+                          :key="year.id"
+                        >
+                          {{ year.text }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group mt-2">
+                      <label for="month"><h6>Month</h6></label>
+                      <input
+                        v-model="masMonthlyExpense.Month"
+                        type="number"
+                        class="form-control"
+                        placeholder="Enter Month"
+                      />
+                    </div>
 
                     <h6 class="mt-2">Biweekly</h6>
                     <div class="mt-2">
@@ -31,7 +56,8 @@
                           class="form-check-input"
                           type="radio"
                           name="flexRadio-biweekly"
-                          id="flexRadio-biweekly-1"
+                          v-model="masMonthlyExpense.BiweeklyNumber"
+                          value="1"
                         />
                         <label
                           class="form-check-label"
@@ -45,8 +71,8 @@
                           class="form-check-input"
                           type="radio"
                           name="flexRadio-biweekly"
-                          id="flexRadio-biweekly-2"
-                          checked
+                          v-model="masMonthlyExpense.BiweeklyNumber"
+                          value="2"
                         />
                         <label
                           class="form-check-label"
@@ -57,14 +83,20 @@
                       </div>
                     </div>
 
-                    <div class="mt-2">
-                      <h6>Budget</h6>
-                      <input type="text" class="form-control" id="txtBudget" />
+                    <div class="form-group mt-2">
+                      <label for="budget"><h6>Budget</h6></label>
+                      <input
+                        v-model="masMonthlyExpense.Budget"
+                        type="number"
+                        class="form-control"
+                        placeholder="Enter Budget"
+                      />
                     </div>
+
                     <div>
                       <button
-                        class="btn btn-success btn-sm"
-                        v-on:click="GetMonthlyExpenses(14)"
+                        class="btn btn-success btn-sm mt-2"
+                        v-on:click="GetMasMonthlyExpensesByParameters()"
                         type="button"
                       >
                         Search
@@ -100,7 +132,6 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Budget"
-                              v-model="monthlyExpense.budget"
                             />
                           </div>
                           <div>
@@ -256,29 +287,63 @@ export default {
   data() {
     return {
       masMonthlyExpense: {
-        masMonthlyExpensesId: "",
+        MasMonthlyExpensesId: "",
         Year: "",
         Month: "",
         Income: "",
         BiweeklyNumber: "",
       },
       monthlyExpense: {
-        montlyExpensesId: "",
-        masExpensesId: "",
-        masMonthlyExpensesId: "",
-        masExpensesDescription: "",
-        payment: "",
-        budget: "",
+        MontlyExpensesId: "",
+        MasExpensesId: "",
+        MasMonthlyExpensesId: "",
+        MasExpensesDescription: "",
+        Payment: "",
+        Budget: "",
       },
       listMonthlyExpense: [],
       loading: false,
+      Years: [],
     };
   },
   methods: {
     GetMasMonthlyExpenses() {
-     
+      // this.loading = true;
+      // axios
+      //   .get(
+      //     "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpeses/"
+      //   )
+      //   .then((response) => {
+      //     this.loading = false;
+      //     return response.data
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //     this.loading = false;
+      //   });
     },
-
+    GetMasMonthlyExpensesByParameters() {
+      // TODO: In progress
+      this.loading = true;
+      this.masMonthlyExpense.BiweeklyNumber = Number(this.masMonthlyExpense.BiweeklyNumber);
+      const masMonthlyExpense = this.masMonthlyExpense;
+      console.log(masMonthlyExpense)
+      axios
+        .post(
+          "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",{
+          params: {
+            masMonthlyExpense: masMonthlyExpense,
+          },
+        }).then((response) => {
+          this.loading = false;
+          this.masMonthlyExpense = response.data;
+          this.GetMonthlyExpenses(this.masMonthlyExpense.MasMonthlyExpensesId)
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
     GetMonthlyExpenses(masMonthlyExpensesId) {
       this.loading = true;
       axios
@@ -302,21 +367,49 @@ export default {
 
       this.loading = true;
       axios
-        .put("https://localhost:44359/api/MonthlyExpenses/" + montlyExpensesId,monthlyExpense)
+        .put(
+          "https://localhost:44359/api/MonthlyExpenses/" + montlyExpensesId,
+          monthlyExpense
+        )
         .then((response) => {
-            console.log(response);
+          console.log(response);
           this.loading = false;
-          this.GetMonthlyExpenses(14);
+          this.GetMonthlyExpenses(this.masMonthlyExpense.MasMonthlyExpensesId);
         })
         .catch((error) => {
           console.error(error);
           this.loading = false;
         });
     },
+    fillYearsDropDownListModel() {
+      this.loading = true;
+      axios
+        .get(
+          "https://localhost:44359/api/MasMonthlyExpenses/GetYearWithBudget/"
+        )
+        .then((response) => {
+          this.loading = false;
+          response.data.forEach((item) => {
+            this.Years.push({
+              id: item.year,
+              text: item.year,
+            });
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    clearControls() {
+      this.masMonthlyExpense = null;
+    },
+  },
+  computed: {
     
   },
-  created: function () {
-    // Fill dropownList
+  mounted() {
+    this.fillYearsDropDownListModel();
   },
 };
 </script>

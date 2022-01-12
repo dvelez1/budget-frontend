@@ -15,7 +15,20 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Biweekly Selection</h5>
+                    <div class="row g-2">
+                      <div class="col-sm-11">
+                        <h5 class="card-title text-center">
+                          Biweekly Selection
+                        </h5>
+                      </div>
+                      <div class="col-sm-1">
+                        <input
+                          class="btn btn-primary btn-sm float-end"
+                          type="button"
+                          value="Add"
+                        />
+                      </div>
+                    </div>
                     <hr />
                     <!--<h6>Year</h6>
                      <select class="form-select">
@@ -114,7 +127,7 @@
                 </div>
               </div>
             </div>
-
+            <!-- Budget -> MonthlyExpenses -->
             <div class="row">
               <div class="col-md-6 mt-2">
                 <div class="card">
@@ -140,8 +153,10 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Budget"
+                              v-model="monthlyExpense.budget"
                             />
                           </div>
+                          &nbsp;
                           <div>
                             <input
                               type="text"
@@ -150,6 +165,7 @@
                               v-model="monthlyExpense.payment"
                             />
                           </div>
+                          &nbsp;
                           <div>
                             <input
                               class="btn btn-success btn-sm"
@@ -203,6 +219,7 @@
                               placeholder="Cost"
                             />
                           </div>
+                          &nbsp;
                           <div>
                             <input
                               type="text"
@@ -210,6 +227,7 @@
                               placeholder="Payment"
                             />
                           </div>
+                          &nbsp;
                           <div>
                             <input
                               type="text"
@@ -217,6 +235,7 @@
                               placeholder="difference"
                             />
                           </div>
+                          &nbsp;
                           <div>
                             <input
                               class="btn btn-success btn-sm"
@@ -236,36 +255,39 @@
               <div class="col-md-6 mt-2">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row g-2">
-                      <div class="col-sm-11">
-                        <h5 class="card-title text-center">
-                          Additional Expenses
-                        </h5>
-                      </div>
-                      <div class="col-sm-1">
-                        <input
-                          class="btn btn-primary btn-sm float-end"
-                          type="button"
-                          value="Add"
-                        />
-                      </div>
-                    </div>
+                    <h5 class="card-title text-center">Additional Expenses</h5>
                     <hr />
-                    <div class="row">
-                      <div class="col md-10">
+                    <ul class="list-group">
+                      <li
+                        v-for="(
+                          manualMonthlyExpense, index
+                        ) of listmanualMonthlyExpense"
+                        :key="index"
+                        class="list-group-item d-flex justify-content-between"
+                      >
                         <div>
-                          <label>Description of the item.</label>
+                          {{ manualMonthlyExpense.manualMonthlyExpensesId }} -
+                          {{ manualMonthlyExpense.description }}
                         </div>
-                      </div>
-                      <div class="col md-2">
                         <div class="d-flex justify-content-between">
                           <div>
                             <input
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Budget"
+                              v-model="manualMonthlyExpense.budget"
                             />
                           </div>
+                          &nbsp;
+                          <div>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Payment"
+                              v-model="manualMonthlyExpense.payment"
+                            />
+                          </div>
+                          &nbsp;
                           <div>
                             <input
                               class="btn btn-success btn-sm"
@@ -274,8 +296,8 @@
                             />
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -310,11 +332,28 @@ export default {
         budget: "",
       },
       listMonthlyExpense: [],
+      manualMonthlyExpense: {
+        manualMonthlyExpensesId: "",
+        description: "",
+        masMonthlyExpensesId: "",
+        budget: "",
+        payment: "",
+      },
+      listmanualMonthlyExpense: [],
+      manualMonthlyCreditExpense: {
+        manualMonthlyCreditExpensesId: "",
+        description: "",
+        masMonthlyExpensesId: "",
+        cost: "",
+        payment: "",
+      },
+      listmanualMonthlyCreditExpense: [],
       loading: false,
       Years: [],
     };
   },
   methods: {
+    // MasMonthlyExpenses
     GetMasMonthlyExpenses() {
       // this.loading = true;
       // axios
@@ -332,13 +371,45 @@ export default {
     },
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
-      this.masMonthlyExpense.biweeklyNumber = Number(this.masMonthlyExpense.biweeklyNumber);
-      this.masMonthlyExpense.masMonthlyExpensesId = Number(this.masMonthlyExpense.masMonthlyExpensesId);
+      this.masMonthlyExpense.biweeklyNumber = Number(
+        this.masMonthlyExpense.biweeklyNumber
+      );
+      this.masMonthlyExpense.masMonthlyExpensesId = Number(
+        this.masMonthlyExpense.masMonthlyExpensesId
+      );
       this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
       const masMonthlyExpense = this.masMonthlyExpense;
       axios
         .post(
           "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",
+          masMonthlyExpense
+        )
+        .then((response) => {
+          this.loading = false;
+          this.masMonthlyExpense = response.data;
+          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
+          this.GetManualMonthlyExpenses(
+            this.masMonthlyExpense.masMonthlyExpensesId
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    CreatetMasMonthlyExpenses() {
+      this.loading = true;
+      this.masMonthlyExpense.biweeklyNumber = Number(
+        this.masMonthlyExpense.biweeklyNumber
+      );
+      this.masMonthlyExpense.masMonthlyExpensesId = Number(
+        this.masMonthlyExpense.masMonthlyExpensesId
+      );
+      this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
+      const masMonthlyExpense = this.masMonthlyExpense;
+      axios
+        .post(
+          "https://localhost:44359/api/MasMonthlyExpenses/CreatetMasMonthlyExpenses/",
           masMonthlyExpense
         )
         .then((response) => {
@@ -351,6 +422,49 @@ export default {
           this.loading = false;
         });
     },
+    UpdatetMasMonthlyExpenses(masMonthlyExpensesId, masMonthlyExpense) {
+      console.log(masMonthlyExpensesId);
+      console.log(masMonthlyExpense);
+
+      this.loading = true;
+      axios
+        .put(
+          "https://localhost:44359/api/MasMonthlyExpenses/" +
+            masMonthlyExpensesId,
+          masMonthlyExpense
+        )
+        .then((response) => {
+          this.loading = false;
+          this.masMonthlyExpense = response.data;
+          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    fillYearsDropDownListModel() {
+      this.loading = true;
+      axios
+        .get(
+          "https://localhost:44359/api/MasMonthlyExpenses/GetYearWithBudget/"
+        )
+        .then((response) => {
+          this.loading = false;
+          response.data.forEach((item) => {
+            this.Years.push({
+              id: item.year,
+              text: item.year,
+            });
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+
+    // MonthlyExpenses
     GetMonthlyExpenses(masMonthlyExpensesId) {
       this.loading = true;
       axios
@@ -388,41 +502,74 @@ export default {
           this.loading = false;
         });
     },
-    fillYearsDropDownListModel() {
+
+    // Manual Montlhy Expenses
+    GetManualMonthlyExpenses(masMonthlyExpensesId) {
       this.loading = true;
       axios
-        .get(
-          "https://localhost:44359/api/MasMonthlyExpenses/GetYearWithBudget/"
-        )
+        .get("https://localhost:44359/api/ManualMonthlyExpenses/", {
+          params: {
+            masMonthlyExpensesId: masMonthlyExpensesId,
+          },
+        })
         .then((response) => {
           this.loading = false;
-          response.data.forEach((item) => {
-            this.Years.push({
-              id: item.year,
-              text: item.year,
-            });
-          });
+          this.listmanualMonthlyExpense = response.data;
         })
         .catch((error) => {
           console.error(error);
           this.loading = false;
         });
     },
+    // Manual Montlhy Credit Expenses
+     GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
+      this.loading = true;
+      axios
+        .get("https://localhost:44359/api/ManualMonthlyCreditExpenses/", {
+          params: {
+            masMonthlyExpensesId: masMonthlyExpensesId,
+          },
+        })
+        .then((response) => {
+          this.loading = false;
+          this.listmanualMonthlyExpense = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+
     clearControls() {
+      // masMonthlyExpense
       this.masMonthlyExpense.masMonthlyExpensesId = "";
       this.masMonthlyExpense.year = "";
       this.masMonthlyExpense.month = "";
       this.masMonthlyExpense.income = "";
       this.masMonthlyExpense.biweeklyNumber = "";
-      //
+      // monthlyExpense
       this.monthlyExpense.montlyExpensesId = "";
       this.monthlyExpense.masExpensesId = "";
       this.monthlyExpense.masMonthlyExpensesId = "";
       this.monthlyExpense.masExpensesDescription = "";
       this.monthlyExpense.payment = "";
       this.monthlyExpense.budget = "";
-      //
+      // manualMonthlyExpense
+      this.manualMonthlyExpense.manualMonthlyExpensesId = "";
+      this.manualMonthlyExpense.description = "";
+      this.manualMonthlyExpense.masMonthlyExpensesId = "";
+      this.manualMonthlyExpense.budget = "";
+      this.manualMonthlyExpense.payment = "";
+      // manualMonthlyCreditExpense
+      this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId = "";
+      this.manualMonthlyCreditExpense.description = "";
+      this.manualMonthlyCreditExpense.masMonthlyExpensesId = "";
+      this.manualMonthlyCreditExpense.cost = "";
+      this.manualMonthlyCreditExpense.payment = "";
+      //List
       this.listMonthlyExpense = null;
+      this.listmanualMonthlyExpense = null;
+      this.listmanualMonthlyCreditExpense = null;
     },
   },
   computed: {},

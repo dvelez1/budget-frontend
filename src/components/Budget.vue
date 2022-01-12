@@ -27,7 +27,7 @@
                       <label for="year"><h6>Year</h6></label>
                       <select
                         class="form-control"
-                        v-model="masMonthlyExpense.Year"
+                        v-model="masMonthlyExpense.year"
                       >
                         <option
                           :value="year.text"
@@ -42,7 +42,7 @@
                     <div class="form-group mt-2">
                       <label for="month"><h6>Month</h6></label>
                       <input
-                        v-model="masMonthlyExpense.Month"
+                        v-model="masMonthlyExpense.month"
                         type="number"
                         class="form-control"
                         placeholder="Enter Month"
@@ -56,7 +56,7 @@
                           class="form-check-input"
                           type="radio"
                           name="flexRadio-biweekly"
-                          v-model="masMonthlyExpense.BiweeklyNumber"
+                          v-model="masMonthlyExpense.biweeklyNumber"
                           value="1"
                         />
                         <label
@@ -71,7 +71,7 @@
                           class="form-check-input"
                           type="radio"
                           name="flexRadio-biweekly"
-                          v-model="masMonthlyExpense.BiweeklyNumber"
+                          v-model="masMonthlyExpense.biweeklyNumber"
                           value="2"
                         />
                         <label
@@ -86,20 +86,28 @@
                     <div class="form-group mt-2">
                       <label for="budget"><h6>Budget</h6></label>
                       <input
-                        v-model="masMonthlyExpense.Budget"
+                        v-model="masMonthlyExpense.income"
                         type="number"
                         class="form-control"
                         placeholder="Enter Budget"
                       />
                     </div>
 
-                    <div>
+                    <div class="float-end">
                       <button
-                        class="btn btn-success btn-sm mt-2"
+                        class="btn btn-primary btn-sm mt-2"
                         v-on:click="GetMasMonthlyExpensesByParameters()"
                         type="button"
                       >
                         Search
+                      </button>
+                      &nbsp;
+                      <button
+                        class="btn btn-secondary btn-sm mt-2"
+                        v-on:click="clearControls()"
+                        type="button"
+                      >
+                        Reset
                       </button>
                     </div>
                   </div>
@@ -287,19 +295,19 @@ export default {
   data() {
     return {
       masMonthlyExpense: {
-        MasMonthlyExpensesId: "",
-        Year: "",
-        Month: "",
-        Income: "",
-        BiweeklyNumber: "",
+        masMonthlyExpensesId: "",
+        year: "",
+        month: "",
+        income: "",
+        biweeklyNumber: "",
       },
       monthlyExpense: {
-        MontlyExpensesId: "",
-        MasExpensesId: "",
-        MasMonthlyExpensesId: "",
-        MasExpensesDescription: "",
-        Payment: "",
-        Budget: "",
+        montlyExpensesId: "",
+        masExpensesId: "",
+        masMonthlyExpensesId: "",
+        masExpensesDescription: "",
+        payment: "",
+        budget: "",
       },
       listMonthlyExpense: [],
       loading: false,
@@ -323,21 +331,20 @@ export default {
       //   });
     },
     GetMasMonthlyExpensesByParameters() {
-      // TODO: In progress
       this.loading = true;
-      this.masMonthlyExpense.BiweeklyNumber = Number(this.masMonthlyExpense.BiweeklyNumber);
+      this.masMonthlyExpense.biweeklyNumber = Number(this.masMonthlyExpense.biweeklyNumber);
+      this.masMonthlyExpense.masMonthlyExpensesId = Number(this.masMonthlyExpense.masMonthlyExpensesId);
+      this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
       const masMonthlyExpense = this.masMonthlyExpense;
-      console.log(masMonthlyExpense)
       axios
         .post(
-          "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",{
-          params: {
-            masMonthlyExpense: masMonthlyExpense,
-          },
-        }).then((response) => {
+          "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",
+          masMonthlyExpense
+        )
+        .then((response) => {
           this.loading = false;
           this.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.masMonthlyExpense.MasMonthlyExpensesId)
+          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.error(error);
@@ -402,12 +409,23 @@ export default {
         });
     },
     clearControls() {
-      this.masMonthlyExpense = null;
+      this.masMonthlyExpense.masMonthlyExpensesId = "";
+      this.masMonthlyExpense.year = "";
+      this.masMonthlyExpense.month = "";
+      this.masMonthlyExpense.income = "";
+      this.masMonthlyExpense.biweeklyNumber = "";
+      //
+      this.monthlyExpense.montlyExpensesId = "";
+      this.monthlyExpense.masExpensesId = "";
+      this.monthlyExpense.masMonthlyExpensesId = "";
+      this.monthlyExpense.masExpensesDescription = "";
+      this.monthlyExpense.payment = "";
+      this.monthlyExpense.budget = "";
+      //
+      this.listMonthlyExpense = null;
     },
   },
-  computed: {
-    
-  },
+  computed: {},
   mounted() {
     this.fillYearsDropDownListModel();
   },

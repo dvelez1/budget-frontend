@@ -251,11 +251,7 @@
                           </div>
                           &nbsp;
                           <div>
-                            <input
-                              type="number"
-                              class="form-control form-control-sm"
-                              placeholder="difference"
-                            />
+                            Diferrence: ${{manualMonthlyCreditExpense.cost - manualMonthlyCreditExpense.payment}}
                           </div>
                           &nbsp;
                           <div>
@@ -264,9 +260,9 @@
                               type="button"
                               value="Save"
                               v-on:click="
-                                UpdateMonthlyExpenses(
-                                  monthlyExpense,
-                                  monthlyExpense.montlyExpensesId
+                                UpdatetManualMonthlyCreditExpenses(
+                                  manualMonthlyCreditExpense.manualMonthlyCreditExpensesId,
+                                  manualMonthlyCreditExpense
                                 )
                               "
                             />
@@ -335,7 +331,12 @@
                               class="btn btn-success btn-sm"
                               type="button"
                               value="Save"
-                              v-on:click="UpdatetManualMonthlyExpenses(manualMonthlyExpense.manualMonthlyExpensesId,manualMonthlyExpense)"
+                              v-on:click="
+                                UpdatetManualMonthlyExpenses(
+                                  manualMonthlyExpense.manualMonthlyExpensesId,
+                                  manualMonthlyExpense
+                                )
+                              "
                             />
                           </div>
                         </div>
@@ -395,22 +396,18 @@ export default {
       Years: [],
     };
   },
+  computed: {
+    creditDifference:function(){
+      return Number(this.manualMonthlyCreditExpense.cost) - Number(this.manualMonthlyCreditExpense.payment);
+    }
+  },
+  mounted() {
+    this.fillYearsDropDownListModel();
+  },
   methods: {
     // MasMonthlyExpenses
     GetMasMonthlyExpenses() {
-      // this.loading = true;
-      // axios
-      //   .get(
-      //     "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpeses/"
-      //   )
-      //   .then((response) => {
-      //     this.loading = false;
-      //     return response.data
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //     this.loading = false;
-      //   });
+
     },
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
@@ -563,11 +560,17 @@ export default {
           this.loading = false;
         });
     },
-    UpdatetManualMonthlyExpenses(manualMonthlyExpensesId,manualMonthlyExpense) {
+    UpdatetManualMonthlyExpenses(
+      manualMonthlyExpensesId,
+      manualMonthlyExpense
+    ) {
       this.loading = true;
       axios
         .put(
-          "https://localhost:44359/api/ManualMonthlyExpenses/" + manualMonthlyExpensesId,manualMonthlyExpense)
+          "https://localhost:44359/api/ManualMonthlyExpenses/" +
+            manualMonthlyExpensesId,
+          manualMonthlyExpense
+        )
         .then((response) => {
           this.loading = false;
           this.manualMonthlyExpense = response.data;
@@ -595,7 +598,29 @@ export default {
           this.loading = false;
         });
     },
-
+    UpdatetManualMonthlyCreditExpenses(
+      manualMonthlyCreditExpensesId,
+      manualMonthlyCreditExpense
+    ) {
+      console.log(manualMonthlyCreditExpensesId);
+      console.log(manualMonthlyCreditExpense);
+      this.loading = true;
+      axios
+        .put(
+          "https://localhost:44359/api/ManualMonthlyCreditExpenses/" +
+            manualMonthlyCreditExpensesId,
+          manualMonthlyCreditExpense
+        )
+        .then((response) => {
+          this.loading = false;
+          this.manualMonthlyCreditExpense = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+// Helpers
     clearControls() {
       // masMonthlyExpense
       this.masMonthlyExpense.masMonthlyExpensesId = "";
@@ -627,10 +652,6 @@ export default {
       this.listmanualMonthlyExpense = null;
       this.listmanualMonthlyCreditExpense = null;
     },
-  },
-  computed: {},
-  mounted() {
-    this.fillYearsDropDownListModel();
   },
 };
 </script>

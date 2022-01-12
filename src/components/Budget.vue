@@ -130,10 +130,24 @@
             <!-- Budget -> MonthlyExpenses -->
             <div class="row">
               <div class="col-md-6 mt-2">
+
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Budget</h5>
-                    <hr />
+                            <div class="row g-2">
+                              <div class="col-sm-11">
+                                <h5 class="card-title text-center">
+                                  Budget
+                                </h5>
+                              </div>
+                              <div class="col-sm-1">
+                                <input
+                                  class="btn btn-primary btn-sm float-end"
+                                  type="button"
+                                  value="Add"
+                                />
+                              </div>
+                            </div>
+                             <hr />
                     <!--  -->
                     <ul class="list-group">
                       <li
@@ -188,66 +202,100 @@
               </div>
               <!-- CREDIT EXPENSES -->
               <div class="col-md-6 mt-2">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row g-2">
-                      <div class="col-sm-11">
-                        <h5 class="card-title text-center">Credit Expenses</h5>
-                      </div>
-                      <div class="col-sm-1">
-                        <input
-                          class="btn btn-primary btn-sm float-end"
-                          type="button"
-                          value="Add"
-                        />
-                      </div>
-                    </div>
-                    <hr />
+               
 
-                    <div class="row">
-                      <div class="col md-8">
-                        <div>
-                          <label>Description of the item.</label>
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row g-2">
+                              <div class="col-sm-11">
+                                <h5 class="card-title text-center">
+                                  Credit Expenses
+                                </h5>
+                              </div>
+                              <div class="col-sm-1">
+                                <input
+                                  class="btn btn-primary btn-sm float-end"
+                                  type="button"
+                                  value="Add"
+                                />
+                              </div>
+                            </div>
+
+                            <hr />
+                            <!--  -->
+                            <ul class="list-group">
+                              <li
+                                v-for="(
+                                  manualMonthlyCreditExpense, index
+                                ) of listmanualMonthlyCreditExpense"
+                                :key="index"
+                                class="
+                                  list-group-item
+                                  d-flex
+                                  justify-content-between
+                                "
+                              >
+                                <div>
+                                  {{
+                                    manualMonthlyCreditExpense.manualMonthlyCreditExpensesId
+                                  }}
+                                  -
+                                  {{ manualMonthlyCreditExpense.description }}
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                  <div>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-sm"
+                                      placeholder="Cost"
+                                      v-model="manualMonthlyCreditExpense.cost"
+                                    />
+                                  </div>
+                                  &nbsp;
+                                  <div>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-sm"
+                                      placeholder="Payment"
+                                      v-model="
+                                        manualMonthlyCreditExpense.payment
+                                      "
+                                    />
+                                  </div>
+                                  &nbsp;
+                                  <div>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-sm"
+                                      placeholder="difference"
+                                    />
+                                  </div>
+                                  &nbsp;
+                                  <div>
+                                    <input
+                                      class="btn btn-success btn-sm"
+                                      type="button"
+                                      value="Save"
+                                      v-on:click="
+                                        UpdateMonthlyExpenses(
+                                          monthlyExpense,
+                                          monthlyExpense.montlyExpensesId
+                                        )
+                                      "
+                                    />
+                                  </div>
+                                </div>
+                                <!--  -->
+                              </li>
+                            </ul>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col md-4">
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <input
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Cost"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Payment"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="difference"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              class="btn btn-success btn-sm"
-                              type="button"
-                              value="Save"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    
+
+
+
+                    
+            
               </div>
             </div>
             <!-- ADDITIONAL EXPENSES -->
@@ -255,7 +303,20 @@
               <div class="col-md-6 mt-2">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Additional Expenses</h5>
+                                                <div class="row g-2">
+                              <div class="col-sm-11">
+                                <h5 class="card-title text-center">
+                                  Additional Expenses
+                                </h5>
+                              </div>
+                              <div class="col-sm-1">
+                                <input
+                                  class="btn btn-primary btn-sm float-end"
+                                  type="button"
+                                  value="Add"
+                                />
+                              </div>
+                            </div>
                     <hr />
                     <ul class="list-group">
                       <li
@@ -391,6 +452,9 @@ export default {
           this.GetManualMonthlyExpenses(
             this.masMonthlyExpense.masMonthlyExpensesId
           );
+          this.GetManualMonthlyCreditExpenses(
+            this.masMonthlyExpense.masMonthlyExpensesId
+          );
         })
         .catch((error) => {
           console.error(error);
@@ -522,7 +586,7 @@ export default {
         });
     },
     // Manual Montlhy Credit Expenses
-     GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
+    GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
       this.loading = true;
       axios
         .get("https://localhost:44359/api/ManualMonthlyCreditExpenses/", {
@@ -532,7 +596,7 @@ export default {
         })
         .then((response) => {
           this.loading = false;
-          this.listmanualMonthlyExpense = response.data;
+          this.listmanualMonthlyCreditExpense = response.data;
         })
         .catch((error) => {
           console.error(error);

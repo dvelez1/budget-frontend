@@ -128,7 +128,8 @@
               </div>
             </div>
             <!-- Budget -> MonthlyExpenses -->
-            <div class="row">
+       
+            <div class="row" >
               <div class="col-md-6 mt-2">
                 <div class="card">
                   <div class="card-body">
@@ -146,7 +147,7 @@
                     </div>
                     <hr />
                     <!--  -->
-                    <ul class="list-group">
+                    <ul class="list-group" style="max-height: 300px; margin-bottom: 10px; overflow:scroll; -webkit-overflow-scrolling: touch;">
                       <li
                         v-for="(monthlyExpense, index) of listMonthlyExpense"
                         :key="index"
@@ -275,6 +276,7 @@
                 </div>
               </div>
             </div>
+          
             <!-- ADDITIONAL EXPENSES -->
             <div class="row">
               <div class="col-md-6 mt-2">

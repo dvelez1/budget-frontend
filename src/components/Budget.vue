@@ -23,7 +23,7 @@
                       </div>
                       <div class="col-sm-1">
                         <input
-                          class="btn btn-primary btn-sm float-end"
+                          class="btn btn-dark btn-sm float-end"
                           type="button"
                           value="Add"
                         />
@@ -108,7 +108,7 @@
 
                     <div class="float-end">
                       <button
-                        class="btn btn-primary btn-sm mt-2"
+                        class="btn btn-dark btn-sm mt-2"
                         v-on:click="GetMasMonthlyExpensesByParameters()"
                         type="button"
                       >
@@ -128,8 +128,8 @@
               </div>
             </div>
             <!-- Budget -> MonthlyExpenses -->
-       
-            <div class="row" >
+
+            <div class="row">
               <div class="col-md-6 mt-2">
                 <div class="card">
                   <div class="card-body">
@@ -139,7 +139,7 @@
                       </div>
                       <div class="col-sm-1">
                         <input
-                          class="btn btn-primary btn-sm float-end"
+                          class="btn btn-dark btn-sm float-end"
                           type="button"
                           value="Add"
                         />
@@ -147,7 +147,15 @@
                     </div>
                     <hr />
                     <!--  -->
-                    <ul class="list-group" style="max-height: 300px; margin-bottom: 10px; overflow:scroll; -webkit-overflow-scrolling: touch;">
+                    <ul
+                      class="list-group"
+                      style="
+                        max-height: 300px;
+                        margin-bottom: 10px;
+                        overflow: scroll;
+                        -webkit-overflow-scrolling: touch;
+                      "
+                    >
                       <li
                         v-for="(monthlyExpense, index) of listMonthlyExpense"
                         :key="index"
@@ -180,7 +188,7 @@
                           &nbsp;
                           <div>
                             <input
-                              class="btn btn-success btn-sm"
+                              class="btn btn-dark btn-sm"
                               type="button"
                               value="Save"
                               v-on:click="
@@ -190,8 +198,16 @@
                                 )
                               "
                             />
+                            &nbsp;
+                            <input
+                              class="btn btn-secondary btn-sm"
+                              type="button"
+                              value="Delete"
+                            />
                           </div>
                         </div>
+                        <!--  -->
+
                         <!--  -->
                       </li>
                     </ul>
@@ -208,7 +224,7 @@
                       </div>
                       <div class="col-sm-1">
                         <input
-                          class="btn btn-primary btn-sm float-end"
+                          class="btn btn-dark btn-sm float-end"
                           type="button"
                           value="Add"
                         />
@@ -252,12 +268,15 @@
                           </div>
                           &nbsp;
                           <div>
-                            Diferrence: ${{manualMonthlyCreditExpense.cost - manualMonthlyCreditExpense.payment}}
+                            Diferrence: ${{
+                              manualMonthlyCreditExpense.cost -
+                              manualMonthlyCreditExpense.payment
+                            }}
                           </div>
                           &nbsp;
                           <div>
                             <input
-                              class="btn btn-success btn-sm"
+                              class="btn btn-dark btn-sm"
                               type="button"
                               value="Save"
                               v-on:click="
@@ -266,6 +285,12 @@
                                   manualMonthlyCreditExpense
                                 )
                               "
+                            />
+                            &nbsp;
+                            <input
+                              class="btn btn-secondary btn-sm"
+                              type="button"
+                              value="Delete"
                             />
                           </div>
                         </div>
@@ -276,7 +301,7 @@
                 </div>
               </div>
             </div>
-          
+
             <!-- ADDITIONAL EXPENSES -->
             <div class="row">
               <div class="col-md-6 mt-2">
@@ -290,7 +315,7 @@
                       </div>
                       <div class="col-sm-1">
                         <input
-                          class="btn btn-primary btn-sm float-end"
+                          class="btn btn-dark btn-sm float-end"
                           type="button"
                           value="Add"
                         />
@@ -330,7 +355,7 @@
                           &nbsp;
                           <div>
                             <input
-                              class="btn btn-success btn-sm"
+                              class="btn btn-dark btn-sm"
                               type="button"
                               value="Save"
                               v-on:click="
@@ -339,6 +364,12 @@
                                   manualMonthlyExpense
                                 )
                               "
+                            />
+                            &nbsp;
+                            <input
+                              class="btn btn-secondary btn-sm"
+                              type="button"
+                              value="Delete"
                             />
                           </div>
                         </div>
@@ -353,6 +384,9 @@
       </div>
     </div>
   </div>
+  AQUI COMIENZA PAGINACION
+
+     AQUI TERMINA PAGINACION
 </template>
 
 <script>
@@ -396,21 +430,18 @@ export default {
       listmanualMonthlyCreditExpense: [],
       loading: false,
       Years: [],
+      
     };
   },
   computed: {
-    creditDifference:function(){
-      return Number(this.manualMonthlyCreditExpense.cost) - Number(this.manualMonthlyCreditExpense.payment);
-    }
+
   },
   mounted() {
     this.fillYearsDropDownListModel();
   },
   methods: {
     // MasMonthlyExpenses
-    GetMasMonthlyExpenses() {
-
-    },
+    GetMasMonthlyExpenses() {},
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
       this.masMonthlyExpense.biweeklyNumber = Number(
@@ -622,7 +653,7 @@ export default {
           this.loading = false;
         });
     },
-// Helpers
+    // Helpers
     clearControls() {
       // masMonthlyExpense
       this.masMonthlyExpense.masMonthlyExpensesId = "";

@@ -387,15 +387,22 @@
       </div>
     </div>
   </div>
+
+  <!-- <ManualMonthlyExpenseEditor />  -->
 </template>
 
 <script>
 import axios from "axios";
+// import ManualMonthlyExpenseEditor from './Editors/ManualMonthlyExpenseEditor';
 
 export default {
   name: "Budget",
+  components: {
+    // ManualMonthlyExpenseEditor
+  },
   data() {
     return {
+      test: "Mi Prueba",
       masMonthlyExpense: {
         masMonthlyExpensesId: "",
         year: "",
@@ -770,5 +777,8 @@ export default {
 };
 </script>
 
-<style  scoped>
+
+
+
+<style >
 </style>

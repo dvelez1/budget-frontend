@@ -198,12 +198,6 @@
                                 )
                               "
                             />
-                            &nbsp;
-                            <input
-                              class="btn btn-secondary btn-sm"
-                              type="button"
-                              value="Delete"
-                            />
                           </div>
                         </div>
                         <!--  -->
@@ -280,7 +274,7 @@
                               type="button"
                               value="Save"
                               v-on:click="
-                                UpdatetManualMonthlyCreditExpenses(
+                                UpdateManualMonthlyCreditExpenses(
                                   manualMonthlyCreditExpense.manualMonthlyCreditExpensesId,
                                   manualMonthlyCreditExpense
                                 )
@@ -291,6 +285,11 @@
                               class="btn btn-secondary btn-sm"
                               type="button"
                               value="Delete"
+                              v-on:click="
+                                DeleteManualMonthlyCreditExpenses(
+                                  manualMonthlyCreditExpense.manualMonthlyCreditExpensesId
+                                )
+                              "
                             />
                           </div>
                         </div>
@@ -358,7 +357,7 @@
                               type="button"
                               value="Save"
                               v-on:click="
-                                UpdatetManualMonthlyExpenses(
+                                UpdateManualMonthlyExpenses(
                                   manualMonthlyExpense.manualMonthlyExpensesId,
                                   manualMonthlyExpense
                                 )
@@ -369,6 +368,11 @@
                               class="btn btn-secondary btn-sm"
                               type="button"
                               value="Delete"
+                              v-on:click="
+                                UpdateManualMonthlyExpenses(
+                                  manualMonthlyExpense.manualMonthlyExpensesId
+                                )
+                              "
                             />
                           </div>
                         </div>
@@ -585,10 +589,36 @@ export default {
           this.loading = false;
         });
     },
-    UpdatetManualMonthlyExpenses(
-      manualMonthlyExpensesId,
-      manualMonthlyExpense
-    ) {
+    CreatetManualMonthlyExpenses() {
+      this.loading = true;
+      this.manualMonthlyExpense.manualMonthlyExpensesId = Number(
+        this.manualMonthlyExpense.manualMonthlyExpensesId
+      );
+      this.manualMonthlyExpense.budget = Number(
+        this.manualMonthlyExpense.budget
+      );
+      this.manualMonthlyExpense.payment = Number(
+        this.manualMonthlyExpense.payment
+      );
+
+      const manualMonthlyExpense = this.manualMonthlyExpense;
+      axios
+        .post(
+          "https://localhost:44359/api/ManualMonthlyExpenses/",
+          manualMonthlyExpense
+        )
+        .then(() => {
+          this.loading = false;
+          this.GetManualMonthlyExpensesByMasMonthlyExpensesId(
+            this.masMonthlyExpense.masMonthlyExpensesId
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    UpdateManualMonthlyExpenses(manualMonthlyExpensesId, manualMonthlyExpense) {
       this.loading = true;
       axios
         .put(
@@ -605,7 +635,7 @@ export default {
           this.loading = false;
         });
     },
-    DeletetManualMonthlyExpenses(manualMonthlyExpensesId) {
+    DeleteManualMonthlyExpenses(manualMonthlyExpensesId) {
       this.loading = true;
       axios
         .delete(
@@ -639,7 +669,36 @@ export default {
           this.loading = false;
         });
     },
-    UpdatetManualMonthlyCreditExpenses(
+    CreateManualMonthlyCreditExpenses() {
+      this.loading = true;
+      this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId = Number(
+        this.manualMonthlyExpense.manualMonthlyCreditExpensesId
+      );
+      this.manualMonthlyCreditExpense.cost = Number(
+        this.manualMonthlyCreditExpense.cost
+      );
+      this.manualMonthlyCreditExpense.payment = Number(
+        this.manualMonthlyCreditExpense.payment
+      );
+
+      const manualMonthlyCreditExpense = this.manualMonthlyCreditExpense;
+      axios
+        .post(
+          "https://localhost:44359/api/ManualMonthlyCreditExpenses/",
+          manualMonthlyCreditExpense
+        )
+        .then(() => {
+          this.loading = false;
+          this.GetManualMonthlyCreditExpenses(
+            this.manualMonthlyCreditExpense.masMonthlyExpensesId
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
+    UpdateManualMonthlyCreditExpenses(
       manualMonthlyCreditExpensesId,
       manualMonthlyCreditExpense
     ) {
@@ -659,7 +718,7 @@ export default {
           this.loading = false;
         });
     },
-    DeletetManualMonthlyCreditExpenses(manualMonthlyCreditExpensesId) {
+    DeleteManualMonthlyCreditExpenses(manualMonthlyCreditExpensesId) {
       this.loading = true;
       axios
         .delete(

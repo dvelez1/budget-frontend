@@ -127,9 +127,9 @@
                 </div>
               </div>
             </div>
-            <!-- Budget -> MonthlyExpenses -->
 
             <div class="row">
+              <!-- Budget -> MonthlyExpenses -->
               <div class="col-md-6 mt-2">
                 <div class="card">
                   <div class="card-body">
@@ -301,8 +301,7 @@
                 </div>
               </div>
             </div>
-
-            <!-- ADDITIONAL EXPENSES -->
+            <!-- ADDITIONAL Montlhy EXPENSES -->
             <div class="row">
               <div class="col-md-6 mt-2">
                 <div class="card">
@@ -384,9 +383,6 @@
       </div>
     </div>
   </div>
-  AQUI COMIENZA PAGINACION
-
-     AQUI TERMINA PAGINACION
 </template>
 
 <script>
@@ -430,12 +426,9 @@ export default {
       listmanualMonthlyCreditExpense: [],
       loading: false,
       Years: [],
-      
     };
   },
-  computed: {
-
-  },
+  computed: {},
   mounted() {
     this.fillYearsDropDownListModel();
   },
@@ -574,7 +567,6 @@ export default {
           this.loading = false;
         });
     },
-
     // Manual Montlhy Expenses
     GetManualMonthlyExpenses(masMonthlyExpensesId) {
       this.loading = true;
@@ -613,6 +605,22 @@ export default {
           this.loading = false;
         });
     },
+    DeletetManualMonthlyExpenses(manualMonthlyExpensesId) {
+      this.loading = true;
+      axios
+        .delete(
+          "https://localhost:44359/api/ManualMonthlyExpenses/" +
+            manualMonthlyExpensesId
+        )
+        .then((response) => {
+          this.loading = false;
+          this.manualMonthlyExpense = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.loading = false;
+        });
+    },
     // Manual Montlhy Credit Expenses
     GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
       this.loading = true;
@@ -635,12 +643,10 @@ export default {
       manualMonthlyCreditExpensesId,
       manualMonthlyCreditExpense
     ) {
-      console.log(manualMonthlyCreditExpensesId);
-      console.log(manualMonthlyCreditExpense);
       this.loading = true;
       axios
         .put(
-          "https://localhost:44359/api/ManualMonthlyCreditExpenses/" +
+          "https://localhost:44359/api/manualMonthlyCreditExpensesId/" +
             manualMonthlyCreditExpensesId,
           manualMonthlyCreditExpense
         )
@@ -650,6 +656,22 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+          this.loading = false;
+        });
+    },
+    DeletetManualMonthlyCreditExpenses(manualMonthlyCreditExpensesId) {
+      this.loading = true;
+      axios
+        .delete(
+          "https://localhost:44359/api/manualMonthlyCreditExpensesId/" +
+            manualMonthlyCreditExpensesId
+        )
+        .then((response) => {
+          this.loading = false;
+          this.manualMonthlyCreditExpense = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
           this.loading = false;
         });
     },

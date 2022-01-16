@@ -182,18 +182,8 @@ export default {
           this.loading = false;
         });
     },
-    //Helpers
-    clearProperties() {
-      this.masMonthlyExpensesId = "";
-      this.manualMonthlyExpense.manualMonthlyExpensesId = "";
-      this.manualMonthlyExpense.description = "";
-      this.manualMonthlyExpense.masMonthlyExpensesId = "";
-      this.manualMonthlyExpense.budget = "";
-      this.manualMonthlyExpense.payment = "";
-    },
   },
   mounted() {
-    this.clearProperties();
     this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);
   },
 };

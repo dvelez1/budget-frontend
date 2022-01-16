@@ -129,83 +129,14 @@
             </div>
 
             <div class="row">
-              <!-- Budget -> MonthlyExpenses -->
+              <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create --> 
               <div class="col-md-6 mt-2">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row g-2">
-                      <div class="col-sm-11">
-                        <h5 class="card-title text-center">Budget</h5>
-                      </div>
-                      <div class="col-sm-1">
-                        <input
-                          class="btn btn-dark btn-sm float-end"
-                          type="button"
-                          value="Add"
-                        />
-                      </div>
-                    </div>
-                    <hr />
-                    <!--  -->
-                    <ul
-                      class="list-group"
-                      style="
-                        max-height: 300px;
-                        margin-bottom: 10px;
-                        overflow: scroll;
-                        -webkit-overflow-scrolling: touch;
-                      "
-                    >
-                      <li
-                        v-for="(monthlyExpense, index) of listMonthlyExpense"
-                        :key="index"
-                        class="list-group-item d-flex justify-content-between"
-                      >
-                        <!--  -->
-
-                        <div>
-                          {{ monthlyExpense.montlyExpensesId }} -
-                          {{ monthlyExpense.masExpensesDescription }}
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <input
-                              type="number"
-                              class="form-control form-control-sm"
-                              placeholder="Budget"
-                              v-model="monthlyExpense.budget"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              type="number"
-                              class="form-control form-control-sm"
-                              placeholder="Payment"
-                              v-model="monthlyExpense.payment"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              class="btn btn-dark btn-sm"
-                              type="button"
-                              value="Save"
-                              v-on:click="
-                                UpdateMonthlyExpenses(
-                                  monthlyExpense,
-                                  monthlyExpense.montlyExpensesId
-                                )
-                              "
-                            />
-                          </div>
-                        </div>
-                        <!--  -->
-
-                        <!--  -->
-                      </li>
-                    </ul>
-                  </div>
+                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                  <MonthlyExpenses
+                    :globalMasMonthlyExpensesId="
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
+                  />
                 </div>
               </div>
               <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
@@ -242,12 +173,14 @@
 import axios from "axios";
 import ManualMonthlyExpenses from "./ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyCreditExpenses from "./ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
+import MonthlyExpenses from "./MonthlyExpenses/MonthlyExpenses";
 
 export default {
   name: "Budget",
   components: {
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
+    MonthlyExpenses,
   },
   data() {
     return {

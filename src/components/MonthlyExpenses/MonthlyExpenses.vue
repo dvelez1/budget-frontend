@@ -5,13 +5,6 @@
         <div class="col-sm-11">
           <h5 class="card-title text-center">Budget</h5>
         </div>
-        <div class="col-sm-1">
-          <input
-            class="btn btn-dark btn-sm float-end"
-            type="button"
-            value="Add"
-          />
-        </div>
       </div>
       <hr />
 

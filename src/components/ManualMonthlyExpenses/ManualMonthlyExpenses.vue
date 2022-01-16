@@ -63,7 +63,7 @@
                   type="button"
                   value="Delete"
                   v-on:click="
-                    UpdateManualMonthlyExpenses(
+                    DeleteManualMonthlyExpenses(
                       manualMonthlyExpense.manualMonthlyExpensesId
                     )
                   "
@@ -183,7 +183,8 @@ export default {
         });
     },
     //Helpers
-    clearControls() {
+    clearProperties() {
+      this.masMonthlyExpensesId = "";
       this.manualMonthlyExpense.manualMonthlyExpensesId = "";
       this.manualMonthlyExpense.description = "";
       this.manualMonthlyExpense.masMonthlyExpensesId = "";
@@ -192,6 +193,7 @@ export default {
     },
   },
   mounted() {
+    this.clearProperties();
     this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);
   },
 };

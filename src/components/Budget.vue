@@ -208,114 +208,29 @@
                   </div>
                 </div>
               </div>
-              <!-- CREDIT EXPENSES -->
+              <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
               <div class="col-md-6 mt-2">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row g-2">
-                      <div class="col-sm-11">
-                        <h5 class="card-title text-center">Credit Expenses</h5>
-                      </div>
-                      <div class="col-sm-1">
-                        <input
-                          class="btn btn-dark btn-sm float-end"
-                          type="button"
-                          value="Add"
-                        />
-                      </div>
-                    </div>
-
-                    <hr />
-                    <!--  -->
-                    <ul class="list-group">
-                      <li
-                        v-for="(
-                          manualMonthlyCreditExpense, index
-                        ) of listmanualMonthlyCreditExpense"
-                        :key="index"
-                        class="list-group-item d-flex justify-content-between"
-                      >
-                        <div>
-                          {{
-                            manualMonthlyCreditExpense.manualMonthlyCreditExpensesId
-                          }}
-                          -
-                          {{ manualMonthlyCreditExpense.description }}
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <input
-                              type="number"
-                              class="form-control form-control-sm"
-                              placeholder="Cost"
-                              v-model="manualMonthlyCreditExpense.cost"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              type="number"
-                              class="form-control form-control-sm"
-                              placeholder="Payment"
-                              v-model="manualMonthlyCreditExpense.payment"
-                            />
-                          </div>
-                          &nbsp;
-                          <div>
-                            Diferrence: ${{
-                              manualMonthlyCreditExpense.cost -
-                              manualMonthlyCreditExpense.payment
-                            }}
-                          </div>
-                          &nbsp;
-                          <div>
-                            <input
-                              class="btn btn-dark btn-sm"
-                              type="button"
-                              value="Save"
-                              v-on:click="
-                                UpdateManualMonthlyCreditExpenses(
-                                  manualMonthlyCreditExpense.manualMonthlyCreditExpensesId,
-                                  manualMonthlyCreditExpense
-                                )
-                              "
-                            />
-                            &nbsp;
-                            <input
-                              class="btn btn-secondary btn-sm"
-                              type="button"
-                              value="Delete"
-                              v-on:click="
-                                DeleteManualMonthlyCreditExpenses(
-                                  manualMonthlyCreditExpense.manualMonthlyCreditExpensesId
-                                )
-                              "
-                            />
-                          </div>
-                        </div>
-                        <!--  -->
-                      </li>
-                    </ul>
-                  </div>
+                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                  <ManualMonthlyCreditExpenses
+                    :globalMasMonthlyExpensesId="
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
+                  />
                 </div>
               </div>
             </div>
-            <!-- ADDITIONAL Montlhy EXPENSES -->
+            <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
             <div class="row">
               <!-- Load after masMonthlyExpense.masMonthlyExpensesId > 0  -->
               <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
-                <ManualMonthlyExpenses :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"/>
+                <ManualMonthlyExpenses
+                  :globalMasMonthlyExpensesId="
+                    masMonthlyExpense.masMonthlyExpensesId
+                  "
+                />
               </div>
             </div>
           </div>
-          <!-- Card footer -->
-          <!-- <div class="card-footer">
-            <div class="row">
-              <div class="col-md-12">
-                <ManualMonthlyExpenses :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"/>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -326,13 +241,13 @@
 <script>
 import axios from "axios";
 import ManualMonthlyExpenses from "./ManualMonthlyExpenses/ManualMonthlyExpenses";
-// import ManualMonthlyExpenseEditor from "./ManualMonthlyExpenses/ManualMonthlyExpenseEditor";
+import ManualMonthlyCreditExpenses from "./ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 
 export default {
   name: "Budget",
   components: {
     ManualMonthlyExpenses,
-    // ManualMonthlyExpenseEditor
+    ManualMonthlyCreditExpenses,
   },
   data() {
     return {

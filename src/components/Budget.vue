@@ -10,7 +10,7 @@
               </div>
             </div>
             <hr />
-            <!-- Master Selection -->
+            <!-- Master Selection TODO: Pending Create Child Component-->
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
@@ -127,7 +127,7 @@
                 </div>
               </div>
             </div>
-
+            
             <div class="row">
               <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create --> 
               <div class="col-md-6 mt-2">
@@ -183,6 +183,7 @@ export default {
     MonthlyExpenses,
   },
   data() {
+    // TODO: Remove unused data properties
     return {
       masMonthlyExpense: {
         masMonthlyExpensesId: "",
@@ -245,13 +246,13 @@ export default {
         .then((response) => {
           this.loading = false;
           this.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
-          this.GetManualMonthlyExpenses(
-            this.masMonthlyExpense.masMonthlyExpensesId
-          );
-          this.GetManualMonthlyCreditExpenses(
-            this.masMonthlyExpense.masMonthlyExpensesId
-          );
+          // this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
+          // this.GetManualMonthlyExpenses(
+          //   this.masMonthlyExpense.masMonthlyExpensesId
+          // );
+          // this.GetManualMonthlyCreditExpenses(
+          //   this.masMonthlyExpense.masMonthlyExpensesId
+          // );
         })
         .catch((error) => {
           console.error(error);
@@ -324,6 +325,8 @@ export default {
           this.loading = false;
         });
     },
+
+/* TODO: Evaluate if Remove somo of those methods (Create Maybe need to stay)
 
     // MonthlyExpenses
     GetMonthlyExpenses(masMonthlyExpensesId) {
@@ -522,7 +525,9 @@ export default {
           this.loading = false;
         });
     },
-    // Helpers
+    */
+    
+    // Helpers - Evaluate this Method
     clearControls() {
       // masMonthlyExpense
       this.masMonthlyExpense.masMonthlyExpensesId = "";

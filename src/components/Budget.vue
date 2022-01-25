@@ -246,13 +246,6 @@ export default {
         .then((response) => {
           this.loading = false;
           this.masMonthlyExpense = response.data;
-          // this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
-          // this.GetManualMonthlyExpenses(
-          //   this.masMonthlyExpense.masMonthlyExpensesId
-          // );
-          // this.GetManualMonthlyCreditExpenses(
-          //   this.masMonthlyExpense.masMonthlyExpensesId
-          // );
         })
         .catch((error) => {
           console.error(error);
@@ -277,7 +270,7 @@ export default {
         .then((response) => {
           this.loading = false;
           this.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
+          // this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.error(error);
@@ -298,7 +291,7 @@ export default {
         .then((response) => {
           this.loading = false;
           this.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
+          // this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.error(error);
@@ -324,210 +317,8 @@ export default {
           console.error(error);
           this.loading = false;
         });
-    },
-
-/* TODO: Evaluate if Remove somo of those methods (Create Maybe need to stay)
-
-    // MonthlyExpenses
-    GetMonthlyExpenses(masMonthlyExpensesId) {
-      this.loading = true;
-      axios
-        .get("https://localhost:44359/api/MonthlyExpenses/", {
-          params: {
-            masMonthlyExpensesId: masMonthlyExpensesId,
-          },
-        })
-        .then((response) => {
-          this.loading = false;
-          this.listMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    UpdateMonthlyExpenses(monthlyExpense, montlyExpensesId) {
-      this.loading = true;
-      axios
-        .put(
-          "https://localhost:44359/api/MonthlyExpenses/" + montlyExpensesId,
-          monthlyExpense
-        )
-        .then((response) => {
-          this.loading = false;
-          this.monthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    // Manual Montlhy Expenses
-    GetManualMonthlyExpenses(masMonthlyExpensesId) {
-      this.loading = true;
-      axios
-        .get("https://localhost:44359/api/ManualMonthlyExpenses/", {
-          params: {
-            masMonthlyExpensesId: masMonthlyExpensesId,
-          },
-        })
-        .then((response) => {
-          this.loading = false;
-          this.listmanualMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    CreatetManualMonthlyExpenses() {
-      this.loading = true;
-      this.manualMonthlyExpense.manualMonthlyExpensesId = Number(
-        this.manualMonthlyExpense.manualMonthlyExpensesId
-      );
-      this.manualMonthlyExpense.budget = Number(
-        this.manualMonthlyExpense.budget
-      );
-      this.manualMonthlyExpense.payment = Number(
-        this.manualMonthlyExpense.payment
-      );
-
-      const manualMonthlyExpense = this.manualMonthlyExpense;
-      axios
-        .post(
-          "https://localhost:44359/api/ManualMonthlyExpenses/",
-          manualMonthlyExpense
-        )
-        .then(() => {
-          this.loading = false;
-          this.GetManualMonthlyExpensesByMasMonthlyExpensesId(
-            this.masMonthlyExpense.masMonthlyExpensesId
-          );
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    UpdateManualMonthlyExpenses(manualMonthlyExpensesId, manualMonthlyExpense) {
-      this.loading = true;
-      axios
-        .put(
-          "https://localhost:44359/api/ManualMonthlyExpenses/" +
-            manualMonthlyExpensesId,
-          manualMonthlyExpense
-        )
-        .then((response) => {
-          this.loading = false;
-          this.manualMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    DeleteManualMonthlyExpenses(manualMonthlyExpensesId) {
-      this.loading = true;
-      axios
-        .delete(
-          "https://localhost:44359/api/ManualMonthlyExpenses/" +
-            manualMonthlyExpensesId
-        )
-        .then((response) => {
-          this.loading = false;
-          this.manualMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.loading = false;
-        });
-    },
-    // Manual Montlhy Credit Expenses
-    GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
-      this.loading = true;
-      axios
-        .get("https://localhost:44359/api/ManualMonthlyCreditExpenses/", {
-          params: {
-            masMonthlyExpensesId: masMonthlyExpensesId,
-          },
-        })
-        .then((response) => {
-          this.loading = false;
-          this.listmanualMonthlyCreditExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    CreateManualMonthlyCreditExpenses() {
-      this.loading = true;
-      this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId = Number(
-        this.manualMonthlyExpense.manualMonthlyCreditExpensesId
-      );
-      this.manualMonthlyCreditExpense.cost = Number(
-        this.manualMonthlyCreditExpense.cost
-      );
-      this.manualMonthlyCreditExpense.payment = Number(
-        this.manualMonthlyCreditExpense.payment
-      );
-
-      const manualMonthlyCreditExpense = this.manualMonthlyCreditExpense;
-      axios
-        .post(
-          "https://localhost:44359/api/ManualMonthlyCreditExpenses/",
-          manualMonthlyCreditExpense
-        )
-        .then(() => {
-          this.loading = false;
-          this.GetManualMonthlyCreditExpenses(
-            this.manualMonthlyCreditExpense.masMonthlyExpensesId
-          );
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    UpdateManualMonthlyCreditExpenses(
-      manualMonthlyCreditExpensesId,
-      manualMonthlyCreditExpense
-    ) {
-      this.loading = true;
-      axios
-        .put(
-          "https://localhost:44359/api/manualMonthlyCreditExpensesId/" +
-            manualMonthlyCreditExpensesId,
-          manualMonthlyCreditExpense
-        )
-        .then((response) => {
-          this.loading = false;
-          this.manualMonthlyCreditExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    DeleteManualMonthlyCreditExpenses(manualMonthlyCreditExpensesId) {
-      this.loading = true;
-      axios
-        .delete(
-          "https://localhost:44359/api/manualMonthlyCreditExpensesId/" +
-            manualMonthlyCreditExpensesId
-        )
-        .then((response) => {
-          this.loading = false;
-          this.manualMonthlyCreditExpense = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.loading = false;
-        });
-    },
-    */
-    
-    // Helpers - Evaluate this Method
+    },      
+    // Helpers - Evaluate this Method if can be removed
     clearControls() {
       // masMonthlyExpense
       this.masMonthlyExpense.masMonthlyExpensesId = "";

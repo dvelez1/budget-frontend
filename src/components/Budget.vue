@@ -127,8 +127,9 @@
                 </div>
               </div>
             </div>
+            
             <div class="row">
-              <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
+              <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create --> 
               <div class="col-md-6 mt-2">
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
                   <MonthlyExpenses
@@ -223,7 +224,6 @@ export default {
   computed: {},
   mounted() {
     this.fillYearsDropDownListModel();
-
   },
   methods: {
     // MasMonthlyExpenses
@@ -317,8 +317,7 @@ export default {
           console.error(error);
           this.loading = false;
         });
-    },
-
+    },      
     // Helpers - Evaluate this Method if can be removed
     clearControls() {
       // masMonthlyExpense
@@ -351,7 +350,6 @@ export default {
       this.listmanualMonthlyExpense = null;
       this.listmanualMonthlyCreditExpense = null;
     },
-
   },
 };
 </script>

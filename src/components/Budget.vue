@@ -131,7 +131,7 @@
             <div class="row">
               <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create --> 
               <div class="col-md-6 mt-2">
-                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                <div v-if="masMonthlyExpense.masMonthlyExpensesId >0">
                   <MonthlyExpenses
                     :globalMasMonthlyExpensesId="
                       masMonthlyExpense.masMonthlyExpensesId

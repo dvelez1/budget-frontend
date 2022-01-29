@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Budget  from '@/components/Budget.vue';
+import ManualMonthlyExpensesEditor  from '@/components/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue';
 
 const routes = [
   {
@@ -19,6 +20,12 @@ const routes = [
     name: "Budget",
     component: Budget,
   },
+  {
+    path: "/addManualEntry",
+    name: "AddManualEntry",
+    component: ManualMonthlyExpensesEditor,
+  },
+
 ];
 
 const router = createRouter({

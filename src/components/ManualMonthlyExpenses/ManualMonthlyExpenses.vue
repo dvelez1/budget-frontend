@@ -184,7 +184,6 @@ export default {
         });
     },
     Add(){
-      alert("entre")
       this.$router.push('/addManualEntry');
     }
   },

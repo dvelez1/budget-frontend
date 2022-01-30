@@ -10,6 +10,7 @@
             class="btn btn-dark btn-sm float-end"
             type="button"
             value="Add"
+            v-on:click="Add()"
           />
         </div>
       </div>
@@ -193,6 +194,9 @@ export default {
           this.loading = false;
         });
     },
+    Add(){
+      this.$router.push('/addManualCreditEntry');
+    }
   },
   mounted() {
     this.GetManualMonthlyCreditExpenses(this.masMonthlyExpensesId);

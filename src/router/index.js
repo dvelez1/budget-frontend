@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Budget  from '@/components/Budget.vue';
 import ManualMonthlyExpensesEditor  from '@/components/Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue';
+import ManualMonthlyCreditExpensesEditor from '@/components/Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue';
 
 const routes = [
   {
@@ -25,7 +26,11 @@ const routes = [
     name: "AddManualEntry",
     component: ManualMonthlyExpensesEditor,
   },
-
+  {
+    path: "/addManualCreditEntry",
+    name: "AddManualCreditEntry",
+    component: ManualMonthlyCreditExpensesEditor,
+  },
 ];
 
 const router = createRouter({

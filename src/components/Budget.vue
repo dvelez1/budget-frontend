@@ -171,9 +171,9 @@
 
 <script>
 import axios from "axios";
-import ManualMonthlyExpenses from "./ManualMonthlyExpenses/ManualMonthlyExpenses";
-import ManualMonthlyCreditExpenses from "./ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
-import MonthlyExpenses from "./MonthlyExpenses/MonthlyExpenses";
+import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
+import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
+import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 
 export default {
   name: "Budget",

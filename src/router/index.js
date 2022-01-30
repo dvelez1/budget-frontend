@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Budget  from '@/components/Budget.vue';
-import ManualMonthlyExpensesEditor  from '@/components/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue';
+import ManualMonthlyExpensesEditor  from '@/components/Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue';
 
 const routes = [
   {

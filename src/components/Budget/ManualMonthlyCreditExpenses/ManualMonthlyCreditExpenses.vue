@@ -195,7 +195,7 @@ export default {
         });
     },
     Add(){
-      this.$router.push('/addManualCreditEntry');
+      this.$emit("SetManualMonthlyCreditExpensesEditorProperty",true);
     }
   },
   mounted() {

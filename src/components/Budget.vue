@@ -10,156 +10,166 @@
               </div>
             </div>
             <hr />
-            <!-- Master Selection TODO: Pending Create Child Component-->
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row g-2">
-                      <div class="col-sm-11">
-                        <h5 class="card-title text-center">
-                          Biweekly Selection
-                        </h5>
+            <div v-if="DisplayMainScreen">
+              <!-- Master Selection TODO: Pending Create Child Component-->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row g-2">
+                        <div class="col-sm-11">
+                          <h5 class="card-title text-center">
+                            Biweekly Selection
+                          </h5>
+                        </div>
+                        <div class="col-sm-1">
+                          <input
+                            class="btn btn-dark btn-sm float-end"
+                            type="button"
+                            value="Add"
+                          />
+                        </div>
                       </div>
-                      <div class="col-sm-1">
-                        <input
-                          class="btn btn-dark btn-sm float-end"
-                          type="button"
-                          value="Add"
-                        />
-                      </div>
-                    </div>
-                    <hr />
-                    <!--<h6>Year</h6>
+                      <hr />
+                      <!--<h6>Year</h6>
                      <select class="form-select">
                       <option selected>Select Year</option>
                       <option value="1">2021</option>
                       <option value="2">2022</option>
                     </select> -->
-                    <div class="form-group">
-                      <label for="year"><h6>Year</h6></label>
-                      <select
-                        class="form-control"
-                        v-model="masMonthlyExpense.year"
-                      >
-                        <option
-                          :value="year.text"
-                          v-for="year in Years"
-                          :key="year.id"
+                      <div class="form-group">
+                        <label for="year"><h6>Year</h6></label>
+                        <select
+                          class="form-control"
+                          v-model="masMonthlyExpense.year"
                         >
-                          {{ year.text }}
-                        </option>
-                      </select>
-                    </div>
-
-                    <div class="form-group mt-2">
-                      <label for="month"><h6>Month</h6></label>
-                      <input
-                        v-model="masMonthlyExpense.month"
-                        type="number"
-                        class="form-control"
-                        placeholder="Enter Month"
-                      />
-                    </div>
-
-                    <h6 class="mt-2">Biweekly</h6>
-                    <div class="mt-2">
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="flexRadio-biweekly"
-                          v-model="masMonthlyExpense.biweeklyNumber"
-                          value="1"
-                        />
-                        <label
-                          class="form-check-label"
-                          for="flexRadio-biweekly-1"
-                        >
-                          1
-                        </label>
+                          <option
+                            :value="year.text"
+                            v-for="year in Years"
+                            :key="year.id"
+                          >
+                            {{ year.text }}
+                          </option>
+                        </select>
                       </div>
-                      <div class="form-check form-check-inline">
+
+                      <div class="form-group mt-2">
+                        <label for="month"><h6>Month</h6></label>
                         <input
-                          class="form-check-input"
-                          type="radio"
-                          name="flexRadio-biweekly"
-                          v-model="masMonthlyExpense.biweeklyNumber"
-                          value="2"
+                          v-model="masMonthlyExpense.month"
+                          type="number"
+                          class="form-control"
+                          placeholder="Enter Month"
                         />
-                        <label
-                          class="form-check-label"
-                          for="flexRadio-biweekly-2"
-                        >
-                          2
-                        </label>
                       </div>
-                    </div>
 
-                    <div class="form-group mt-2">
-                      <label for="budget"><h6>Budget</h6></label>
-                      <input
-                        v-model="masMonthlyExpense.income"
-                        type="number"
-                        class="form-control"
-                        placeholder="Enter Budget"
-                      />
-                    </div>
+                      <h6 class="mt-2">Biweekly</h6>
+                      <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="flexRadio-biweekly"
+                            v-model="masMonthlyExpense.biweeklyNumber"
+                            value="1"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexRadio-biweekly-1"
+                          >
+                            1
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="flexRadio-biweekly"
+                            v-model="masMonthlyExpense.biweeklyNumber"
+                            value="2"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexRadio-biweekly-2"
+                          >
+                            2
+                          </label>
+                        </div>
+                      </div>
 
-                    <div class="float-end">
-                      <button
-                        class="btn btn-dark btn-sm mt-2"
-                        v-on:click="GetMasMonthlyExpensesByParameters()"
-                        type="button"
-                      >
-                        Search
-                      </button>
-                      &nbsp;
-                      <button
-                        class="btn btn-secondary btn-sm mt-2"
-                        v-on:click="clearControls()"
-                        type="button"
-                      >
-                        Reset
-                      </button>
+                      <div class="form-group mt-2">
+                        <label for="budget"><h6>Budget</h6></label>
+                        <input
+                          v-model="masMonthlyExpense.income"
+                          type="number"
+                          class="form-control"
+                          placeholder="Enter Budget"
+                        />
+                      </div>
+
+                      <div class="float-end">
+                        <button
+                          class="btn btn-dark btn-sm mt-2"
+                          v-on:click="GetMasMonthlyExpensesByParameters()"
+                          type="button"
+                        >
+                          Search
+                        </button>
+                        &nbsp;
+                        <button
+                          class="btn btn-secondary btn-sm mt-2"
+                          v-on:click="clearControls()"
+                          type="button"
+                        >
+                          Reset
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
-              <div class="col-md-6 mt-2">
+              <div class="row">
+                <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
+                <div class="col-md-6 mt-2">
+                  <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                    <MonthlyExpenses
+                      :globalMasMonthlyExpensesId="
+                        masMonthlyExpense.masMonthlyExpensesId
+                      "
+                    />
+                  </div>
+                </div>
+                <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
+                <div class="col-md-6 mt-2">
+                  <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                    <ManualMonthlyCreditExpenses
+                      :globalMasMonthlyExpensesId="
+                        masMonthlyExpense.masMonthlyExpensesId"
+                      @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"/>
+                  </div>
+                </div>
+              </div>
+              <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
+              <div class="row">
+                <!-- Load after masMonthlyExpense.masMonthlyExpensesId > 0  -->
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <MonthlyExpenses
+                  <ManualMonthlyExpenses
                     :globalMasMonthlyExpensesId="
                       masMonthlyExpense.masMonthlyExpensesId
                     "
-                  />
-                </div>
-              </div>
-              <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
-              <div class="col-md-6 mt-2">
-                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <ManualMonthlyCreditExpenses
-                    :globalMasMonthlyExpensesId="
-                      masMonthlyExpense.masMonthlyExpensesId
+                    @SetManualMonthlyExpensesEditorProperty="
+                      SetManualMonthlyExpensesEditorProperty($event)
                     "
                   />
                 </div>
               </div>
             </div>
-            <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
-            <div class="row">
-              <!-- Load after masMonthlyExpense.masMonthlyExpensesId > 0  -->
-              <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
-                <ManualMonthlyExpenses
-                  :globalMasMonthlyExpensesId="
-                    masMonthlyExpense.masMonthlyExpensesId
-                  "
-                />
-              </div>
+            <div v-if="ManualMonthlyExpensesEditor">
+              <ManualMonthlyExpensesEditor @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"/>
+            </div>
+            <div v-if="ManualMonthlyCreditExpensesEditor">
+              <ManualMonthlyCreditExpensesEditor  @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"/>
             </div>
           </div>
         </div>
@@ -174,6 +184,8 @@ import axios from "axios";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
+import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
+import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
 
 export default {
   name: "Budget",
@@ -181,9 +193,10 @@ export default {
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
     MonthlyExpenses,
+    ManualMonthlyExpensesEditor,
+    ManualMonthlyCreditExpensesEditor,
   },
   data() {
-    // TODO: Remove unused data properties
     return {
       masMonthlyExpense: {
         masMonthlyExpensesId: "",
@@ -192,38 +205,22 @@ export default {
         income: "",
         biweeklyNumber: "",
       },
-      monthlyExpense: {
-        montlyExpensesId: "",
-        masExpensesId: "",
-        masMonthlyExpensesId: "",
-        masExpensesDescription: "",
-        payment: "",
-        budget: "",
-      },
-      listMonthlyExpense: [],
-      manualMonthlyExpense: {
-        manualMonthlyExpensesId: "",
-        description: "",
-        masMonthlyExpensesId: "",
-        budget: "",
-        payment: "",
-      },
-      listmanualMonthlyExpense: [],
-      manualMonthlyCreditExpense: {
-        manualMonthlyCreditExpensesId: "",
-        description: "",
-        masMonthlyExpensesId: "",
-        cost: "",
-        payment: "",
-      },
-      listmanualMonthlyCreditExpense: [],
       loading: false,
       Years: [],
+      ManualMonthlyExpensesEditor: false,
+      ManualMonthlyCreditExpensesEditor: false,
     };
   },
-  computed: {},
+  computed: {
+    DisplayMainScreen() {
+      return (
+        this.ManualMonthlyExpensesEditor == false &&
+        this.ManualMonthlyCreditExpensesEditor == false
+      );
+    },
+  },
   mounted() {
-    this.fillYearsDropDownListModel();
+    this.FillYearsDropDownListModel();
   },
   methods: {
     // MasMonthlyExpenses
@@ -305,7 +302,7 @@ export default {
           this.loading = false;
         });
     },
-    fillYearsDropDownListModel() {
+    FillYearsDropDownListModel() {
       this.loading = true;
       axios
         .get(
@@ -325,39 +322,11 @@ export default {
           this.loading = false;
         });
     },
-
-    
-    // Helpers - Evaluate this Method
-    clearControls() {
-      // masMonthlyExpense
-      this.masMonthlyExpense.masMonthlyExpensesId = "";
-      this.masMonthlyExpense.year = "";
-      this.masMonthlyExpense.month = "";
-      this.masMonthlyExpense.income = "";
-      this.masMonthlyExpense.biweeklyNumber = "";
-      // monthlyExpense
-      this.monthlyExpense.montlyExpensesId = "";
-      this.monthlyExpense.masExpensesId = "";
-      this.monthlyExpense.masMonthlyExpensesId = "";
-      this.monthlyExpense.masExpensesDescription = "";
-      this.monthlyExpense.payment = "";
-      this.monthlyExpense.budget = "";
-      // manualMonthlyExpense
-      this.manualMonthlyExpense.manualMonthlyExpensesId = "";
-      this.manualMonthlyExpense.description = "";
-      this.manualMonthlyExpense.masMonthlyExpensesId = "";
-      this.manualMonthlyExpense.budget = "";
-      this.manualMonthlyExpense.payment = "";
-      // manualMonthlyCreditExpense
-      this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId = "";
-      this.manualMonthlyCreditExpense.description = "";
-      this.manualMonthlyCreditExpense.masMonthlyExpensesId = "";
-      this.manualMonthlyCreditExpense.cost = "";
-      this.manualMonthlyCreditExpense.payment = "";
-      //List
-      this.listMonthlyExpense = null;
-      this.listmanualMonthlyExpense = null;
-      this.listmanualMonthlyCreditExpense = null;
+    SetManualMonthlyExpensesEditorProperty(value) {
+      this.ManualMonthlyExpensesEditor = value;
+    },
+    SetManualMonthlyCreditExpensesEditorProperty(value) {
+      this.ManualMonthlyCreditExpensesEditor = value;
     },
   },
 };

@@ -85,7 +85,7 @@ export default {
         });
     },
     RedirectToBudget() {
-      this.$router.push("/budget");
+      this.$emit("SetManualMonthlyCreditExpensesEditorProperty",false);
     },
   },
   mounted() {

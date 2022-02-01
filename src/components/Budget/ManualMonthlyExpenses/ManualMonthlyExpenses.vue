@@ -184,7 +184,7 @@ export default {
         });
     },
     Add(){
-      this.$router.push('/addManualEntry');
+      this.$emit("SetManualMonthlyExpensesEditorProperty",true);
     }
   },
   mounted() {

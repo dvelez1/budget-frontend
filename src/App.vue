@@ -1,6 +1,7 @@
 <template>
-  <!-- <Budget /> -->
-
+  <!-- Code was commented / We ere using now routing
+    <Budget /> -->
+<!-- NAV added to handle vue router 4 -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Budget</a>

@@ -4,27 +4,21 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
+            <h5 class="card-title">Add Manual Monthly Credit Expenses</h5>
             <form>
               <div class="mb-3">
-                <label for="txtDescription" class="form-label"
-                  >Credit Description</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="txtDescription"
-                  aria-describedby="emailHelp"
-                />
+                <label  class="form-label">Credit Description</label>
+                <input v-model="manualMonthlyCreditExpense.description" type="text" class="form-control"/>
               </div>
               <div class="mb-3">
-                <label for="txtCost" class="form-label">Cost</label>
-                <input type="number" class="form-control" id="txtCost" />
+                <label  class="form-label">Cost</label>
+                <input v-model="manualMonthlyCreditExpense.cost" type="number" class="form-control"/>
               </div>
               <div class="mb-3">
-                <label for="txtPayment" class="form-label">Payment</label>
-                <input type="number" class="form-control" id="txtPayment" />
+                <label   class="form-label">Payment</label>
+                <input v-model="manualMonthlyCreditExpense.payment" type="number" class="form-control"  />
               </div>
-              <button type="submit" class="btn btn-primary" v-on:Click="RedirectToBudget()">Submit</button>
+              <button type="submit" class="btn btn-primary" v-on:Click="CreateManualMonthlyCreditExpenses()">Submit</button>
             </form>
           </div>
         </div>
@@ -37,7 +31,7 @@
 import axios from "axios";
 
 export default {
-  name: "ManualMonthlyExpenses",
+  name: "ManualMonthlyCreditExpenses",
   components: {},
   data() {
     return {
@@ -49,35 +43,26 @@ export default {
         cost: "",
         payment: "",
       },
-      listmanualMonthlyCreditExpenses: [],
     };
   },
   props: ["globalMasMonthlyExpensesId"],
   methods: {
       CreateManualMonthlyCreditExpenses() {
       this.loading = true;
-      this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId = Number(
-        this.manualMonthlyExpense.manualMonthlyCreditExpensesId
-      );
-      this.manualMonthlyCreditExpense.cost = Number(
-        this.manualMonthlyCreditExpense.cost
-      );
-      this.manualMonthlyCreditExpense.payment = Number(
-        this.manualMonthlyCreditExpense.payment
-      );
+      this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId = Number(this.manualMonthlyCreditExpense.manualMonthlyCreditExpensesId);
+      this.manualMonthlyCreditExpense.cost = Number(this.manualMonthlyCreditExpense.cost);
+      this.manualMonthlyCreditExpense.payment = Number(this.manualMonthlyCreditExpense.payment);
+      this.manualMonthlyCreditExpense.masMonthlyExpensesId = this.masMonthlyExpensesId;
 
       const manualMonthlyCreditExpense = this.manualMonthlyCreditExpense;
+      console.log(manualMonthlyCreditExpense)
       axios
-        .post(
-          "https://localhost:44359/api/ManualMonthlyCreditExpenses/",
-          manualMonthlyCreditExpense
-        )
+        .post("https://localhost:44359/api/ManualMonthlyCreditExpenses/", manualMonthlyCreditExpense)
         .then(() => {
           this.loading = false;
-          this.GetManualMonthlyCreditExpenses(
-            this.manualMonthlyCreditExpense.masMonthlyExpensesId
-          );
+          //this.GetManualMonthlyCreditExpenses(this.manualMonthlyCreditExpense.masMonthlyExpensesId);
           alert("success!");
+          this.RedirectToBudget();
         })
         .catch((error) => {
           console.error(error);
@@ -89,7 +74,7 @@ export default {
     },
   },
   mounted() {
-    
+    console.log("ID",this.masMonthlyExpensesId)
   },
 };
 </script>

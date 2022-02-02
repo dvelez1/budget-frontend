@@ -4,27 +4,21 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
+            <h5 class="card-title">Add Manual Monthly Expense</h5>
             <form>
               <div class="mb-3">
-                <label for="txtDescription" class="form-label"
-                  >Description</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="txtDescription"
-                  aria-describedby="emailHelp"
-                />
+                <label class="form-label">Description</label>
+                <input v-model="manualMonthlyExpense.description" type="text" class="form-control"  />
               </div>
               <div class="mb-3">
-                <label for="txtCost" class="form-label">Cost</label>
-                <input type="number" class="form-control" id="txtCost" />
+                <label class="form-label">Cost</label>
+                <input  v-model="manualMonthlyExpense.budget"  type="number" class="form-control" />
               </div>
               <div class="mb-3">
-                <label for="txtPayment" class="form-label">Payment</label>
-                <input type="number" class="form-control" id="txtPayment" />
+                <label class="form-label">Payment</label>
+                <input v-model="manualMonthlyExpense.payment" type="number" class="form-control"  />
               </div>
-              <button type="submit" class="btn btn-primary" v-on:Click="RedirectToBudget()">Submit</button>
+              <button type="submit" class="btn btn-primary" v-on:Click="CreatetManualMonthlyExpenses()">Submit</button>
             </form>
           </div>
         </div>
@@ -45,41 +39,32 @@ export default {
   data() {
     return {
       masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
-      manualMonthlyCreditExpense: {
-        manualMonthlyCreditExpensesId: "",
+      manualMonthlyExpense: {
+        manualMonthlyExpensesId: "",
         description: "",
         masMonthlyExpensesId: "",
-        cost: "",
+        budget: "",
         payment: "",
       },
     };
   },
-  //props: ["masMonthlyExpensesId"],
+  props: ["globalMasMonthlyExpensesId"],
   methods: {
     CreatetManualMonthlyExpenses() {
       this.loading = true;
-      this.manualMonthlyExpense.manualMonthlyExpensesId = Number(
-        this.manualMonthlyExpense.manualMonthlyExpensesId
-      );
-      this.manualMonthlyExpense.budget = Number(
-        this.manualMonthlyExpense.budget
-      );
-      this.manualMonthlyExpense.payment = Number(
-        this.manualMonthlyExpense.payment
-      );
-
+      this.manualMonthlyExpense.manualMonthlyExpensesId = Number(this.manualMonthlyExpense.manualMonthlyExpensesId);
+      this.manualMonthlyExpense.budget = Number(this.manualMonthlyExpense.budget);
+      this.manualMonthlyExpense.payment = Number(this.manualMonthlyExpense.payment);
+      this.manualMonthlyExpense.masMonthlyExpensesId = this.masMonthlyExpensesId;
       const manualMonthlyExpense = this.manualMonthlyExpense;
+    
       axios
-        .post(
-          "https://localhost:44359/api/ManualMonthlyExpenses/",
-          manualMonthlyExpense
-        )
+        .post("https://localhost:44359/api/ManualMonthlyExpenses/",manualMonthlyExpense)
         .then(() => {
           this.loading = false;
-          this.GetManualMonthlyExpensesByMasMonthlyExpensesId(
-            this.masMonthlyExpense.masMonthlyExpensesId
-          );
           alert("Success!");
+          // this.GetManualMonthlyExpensesByMasMonthlyExpensesId(this.masMonthlyExpensesId);
+          this.RedirectToBudget();
         })
         .catch((error) => {
           console.error(error);
@@ -88,8 +73,10 @@ export default {
     },
     RedirectToBudget() {
       this.$emit("SetManualMonthlyExpensesEditorProperty",false);
-
     },
+  },
+  mounted() {
+    
   },
 };
 </script>

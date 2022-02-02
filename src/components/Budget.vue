@@ -10,7 +10,7 @@
               </div>
             </div>
             <hr />
-            <div v-if="DisplayMainScreen">
+            <div v-show="DisplayMainScreen">
               <!-- Master Selection TODO: Pending Create Child Component-->
               <div class="row">
                 <div class="col-md-12">
@@ -152,24 +152,19 @@
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
               <div class="row">
-                <!-- Load after masMonthlyExpense.masMonthlyExpensesId > 0  -->
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <ManualMonthlyExpenses
-                    :globalMasMonthlyExpensesId="
-                      masMonthlyExpense.masMonthlyExpensesId
-                    "
-                    @SetManualMonthlyExpensesEditorProperty="
-                      SetManualMonthlyExpensesEditorProperty($event)
-                    "
-                  />
+                  <ManualMonthlyExpenses :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"
+                   @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"/>
                 </div>
               </div>
             </div>
             <div v-if="ManualMonthlyExpensesEditor">
-              <ManualMonthlyExpensesEditor @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"/>
+              <ManualMonthlyExpensesEditor :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"
+               @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"/>
             </div>
             <div v-if="ManualMonthlyCreditExpensesEditor">
-              <ManualMonthlyCreditExpensesEditor  @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"/>
+              <ManualMonthlyCreditExpensesEditor :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"
+               @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"/>
             </div>
           </div>
         </div>
@@ -219,11 +214,14 @@ export default {
       );
     },
   },
-  mounted() {
+  created(){
+    alert("666")
     this.FillYearsDropDownListModel();
   },
+  mounted() {
+
+  },
   methods: {
-    // MasMonthlyExpenses
     GetMasMonthlyExpenses() {},
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;

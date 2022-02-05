@@ -18,7 +18,7 @@
                 <label   class="form-label">Payment</label>
                 <input v-model="manualMonthlyCreditExpense.payment" type="number" class="form-control"  />
               </div>
-              <button type="submit" class="btn btn-primary" v-on:Click="CreateManualMonthlyCreditExpenses()">Submit</button>
+              <button type="submit" class="btn btn-primary" v-on:Click="RedirectToBudget()">Submit</button>
             </form>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default {
         .post("https://localhost:44359/api/ManualMonthlyCreditExpenses/", manualMonthlyCreditExpense)
         .then(() => {
           this.loading = false;
-          //this.GetManualMonthlyCreditExpenses(this.manualMonthlyCreditExpense.masMonthlyExpensesId);
+          this.GetManualMonthlyCreditExpenses(this.manualMonthlyCreditExpense.masMonthlyExpensesId);
           alert("success!");
           this.RedirectToBudget();
         })

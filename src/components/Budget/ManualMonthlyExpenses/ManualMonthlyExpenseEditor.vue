@@ -62,8 +62,8 @@ export default {
         .post("https://localhost:44359/api/ManualMonthlyExpenses/",manualMonthlyExpense)
         .then(() => {
           this.loading = false;
+          this.GetManualMonthlyExpensesByMasMonthlyExpensesId(this.masMonthlyExpensesId);
           alert("Success!");
-          // this.GetManualMonthlyExpensesByMasMonthlyExpensesId(this.masMonthlyExpensesId);
           this.RedirectToBudget();
         })
         .catch((error) => {

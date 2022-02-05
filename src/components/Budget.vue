@@ -194,13 +194,13 @@ export default {
   data() {
     return {
       sharedState:store.state,
-      masMonthlyExpense: {
-        masMonthlyExpensesId: "",
-        year: "",
-        month: "",
-        income: "",
-        biweeklyNumber: "",
-      },
+      // masMonthlyExpense: {
+      //   masMonthlyExpensesId: "",
+      //   year: "",
+      //   month: "",
+      //   income: "",
+      //   biweeklyNumber: "",
+      // },
       resetFlag: false,
       Years: [],
       ManualMonthlyExpensesEditor: false,

@@ -89,6 +89,7 @@
 
 <script>
 import axios from "axios";
+//import store from "./Budget/store.vue";
 
 export default {
   name: "ManualMonthlyCreditExpenses",

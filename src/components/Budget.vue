@@ -41,7 +41,7 @@
                         <label for="year"><h6>Year</h6></label>
                         <select
                           class="form-control"
-                          v-model="store.masMonthlyExpense.year"
+                          v-model="masMonthlyExpense.year"
                         >
                           <option
                             :value="year.text"
@@ -56,7 +56,7 @@
                       <div class="form-group mt-2">
                         <label for="month"><h6>Month</h6></label>
                         <input
-                          v-model="store.masMonthlyExpense.month"
+                          v-model="masMonthlyExpense.month"
                           type="number"
                           class="form-control"
                           placeholder="Enter Month"
@@ -70,7 +70,7 @@
                             class="form-check-input"
                             type="radio"
                             name="flexRadio-biweekly"
-                            v-model="store.masMonthlyExpense.biweeklyNumber"
+                            v-model="masMonthlyExpense.biweeklyNumber"
                             value="1"
                           />
                           <label
@@ -85,7 +85,7 @@
                             class="form-check-input"
                             type="radio"
                             name="flexRadio-biweekly"
-                            v-model="store.masMonthlyExpense.biweeklyNumber"
+                            v-model="masMonthlyExpense.biweeklyNumber"
                             value="2"
                           />
                           <label
@@ -100,7 +100,7 @@
                       <div class="form-group mt-2">
                         <label for="budget"><h6>Budget</h6></label>
                         <input
-                          v-model="store.masMonthlyExpense.income"
+                          v-model="masMonthlyExpense.income"
                           type="number"
                           class="form-control"
                           placeholder="Enter Budget"
@@ -128,42 +128,62 @@
                   </div>
                 </div>
               </div>
-
-              <div class="row">
-                <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
-                <div class="col-md-6 mt-2">
-                  <div v-if="store.masMonthlyExpense.masMonthlyExpensesId > 0">
-                    <MonthlyExpenses
-                      :globalMasMonthlyExpensesId="
-                        store.masMonthlyExpense.masMonthlyExpensesId
-                      "
-                    />
-                  </div>
+              <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
+              <div class="row mt-2">
+                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                  <MonthlyExpenses
+                    :globalMasMonthlyExpensesId="
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
+                  />
                 </div>
-                <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
-                <div class="col-md-6 mt-2">
-                  <div v-if="store.masMonthlyExpense.masMonthlyExpensesId > 0">
-                    <ManualMonthlyCreditExpenses
-                      :globalMasMonthlyExpensesId="store.masMonthlyExpense.masMonthlyExpensesId"
-                      @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"/>
-                  </div>
+              </div>
+              <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
+              <div class="row mt-2">
+                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                  <ManualMonthlyCreditExpenses
+                    :globalMasMonthlyExpensesId="
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
+                    @SetManualMonthlyCreditExpensesEditorProperty="
+                      SetManualMonthlyCreditExpensesEditorProperty($event)
+                    "
+                  />
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
               <div class="row">
-                <div v-if="store.masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <ManualMonthlyExpenses :globalMasMonthlyExpensesId="store.masMonthlyExpense.masMonthlyExpensesId"
-                   @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"/>
+                <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
+                  <ManualMonthlyExpenses
+                    :globalMasMonthlyExpensesId="
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
+                    @SetManualMonthlyExpensesEditorProperty="
+                      SetManualMonthlyExpensesEditorProperty($event)
+                    "
+                  />
                 </div>
               </div>
             </div>
             <div v-show="ManualMonthlyExpensesEditor">
-              <ManualMonthlyExpensesEditor :globalMasMonthlyExpensesId="store.masMonthlyExpense.masMonthlyExpensesId"
-               @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"/>
+              <ManualMonthlyExpensesEditor
+                :globalMasMonthlyExpensesId="
+                  masMonthlyExpense.masMonthlyExpensesId
+                "
+                @SetManualMonthlyExpensesEditorProperty="
+                  SetManualMonthlyExpensesEditorProperty($event)
+                "
+              />
             </div>
             <div v-show="ManualMonthlyCreditExpensesEditor">
-              <ManualMonthlyCreditExpensesEditor :globalMasMonthlyExpensesId="store.masMonthlyExpense.masMonthlyExpensesId"
-               @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"/>
+              <ManualMonthlyCreditExpensesEditor
+                :globalMasMonthlyExpensesId="
+                  masMonthlyExpense.masMonthlyExpensesId
+                "
+                @SetManualMonthlyCreditExpensesEditorProperty="
+                  SetManualMonthlyCreditExpensesEditorProperty($event)
+                "
+              />
             </div>
           </div>
         </div>
@@ -176,12 +196,10 @@
 <script>
 import axios from "axios";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
-import {store} from './Budget/store.js';
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
-
 
 export default {
   name: "Budget",
@@ -194,7 +212,13 @@ export default {
   },
   data() {
     return {
-      store,
+      masMonthlyExpense: {
+        masMonthlyExpensesId: "",
+        year: "",
+        month: "",
+        income: "",
+        biweeklyNumber: "",
+      },
       resetFlag: false,
       Years: [],
       ManualMonthlyExpensesEditor: false,
@@ -209,19 +233,21 @@ export default {
       );
     },
   },
-  created(){
-   this.FillYearsDropDownListModel();
+  created() {
+    this.FillYearsDropDownListModel();
   },
-  mounted() {
-console.log("test",this.store.test);
-  },
+  mounted() {},
   methods: {
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
-      this.store.masMonthlyExpense.biweeklyNumber = Number(this.store.masMonthlyExpense.biweeklyNumber);
-      this.store.masMonthlyExpense.masMonthlyExpensesId = Number(this.store.masMonthlyExpense.masMonthlyExpensesId);
-      this.store.masMonthlyExpense.income = Number(this.store.masMonthlyExpense.income);
-      const masMonthlyExpense = this.store.masMonthlyExpense;
+      this.masMonthlyExpense.biweeklyNumber = Number(
+        this.masMonthlyExpense.biweeklyNumber
+      );
+      this.masMonthlyExpense.masMonthlyExpensesId = Number(
+        this.masMonthlyExpense.masMonthlyExpensesId
+      );
+      this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
+      const masMonthlyExpense = this.masMonthlyExpense;
       axios
         .post(
           "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",
@@ -229,7 +255,7 @@ console.log("test",this.store.test);
         )
         .then((response) => {
           this.loading = false;
-          this.store.masMonthlyExpense = response.data;
+          this.masMonthlyExpense = response.data;
         })
         .catch((error) => {
           console.error(error);
@@ -238,10 +264,14 @@ console.log("test",this.store.test);
     },
     CreatetMasMonthlyExpenses() {
       this.loading = true;
-      this.store.masMonthlyExpense.biweeklyNumber = Number(this.store.masMonthlyExpense.biweeklyNumber);
-      this.store.masMonthlyExpense.masMonthlyExpensesId = Number(this.store.masMonthlyExpense.masMonthlyExpensesId);
-      this.store.masMonthlyExpense.income = Number(this.store.masMonthlyExpense.income);
-      const masMonthlyExpense = this.store.masMonthlyExpense;
+      this.masMonthlyExpense.biweeklyNumber = Number(
+        this.masMonthlyExpense.biweeklyNumber
+      );
+      this.masMonthlyExpense.masMonthlyExpensesId = Number(
+        this.masMonthlyExpense.masMonthlyExpensesId
+      );
+      this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
+      const masMonthlyExpense = this.masMonthlyExpense;
       axios
         .post(
           "https://localhost:44359/api/MasMonthlyExpenses/CreatetMasMonthlyExpenses/",
@@ -249,8 +279,8 @@ console.log("test",this.store.test);
         )
         .then((response) => {
           this.loading = false;
-          this.store.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.store.masMonthlyExpense.masMonthlyExpensesId);
+          this.masMonthlyExpense = response.data;
+          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.error(error);
@@ -267,8 +297,8 @@ console.log("test",this.store.test);
         )
         .then((response) => {
           this.loading = false;
-          this.store.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.store.masMonthlyExpense.masMonthlyExpensesId);
+          this.masMonthlyExpense = response.data;
+          this.GetMonthlyExpenses(this.masMonthlyExpense.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.error(error);
@@ -301,9 +331,9 @@ console.log("test",this.store.test);
     SetManualMonthlyCreditExpensesEditorProperty(value) {
       this.ManualMonthlyCreditExpensesEditor = value;
     },
-    resetControls(){
+    resetControls() {
       // TODO: Pending Implementation
-    }
+    },
   },
 };
 </script>

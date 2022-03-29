@@ -67,12 +67,14 @@
 
 <script>
 import axios from "axios";
+//  import store from './Budget/store.js';
 
 export default {
   name: "ManualMonthlyExpenses",
   components: {},
   data() {
     return {
+      // shareState: store,
       masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
       monthlyExpense: {
         montlyExpensesId: "",

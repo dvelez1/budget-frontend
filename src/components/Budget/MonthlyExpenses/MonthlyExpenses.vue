@@ -70,7 +70,7 @@ import axios from "axios";
 //  import store from './Budget/store.js';
 
 export default {
-  name: "ManualMonthlyExpenses",
+  name: "MonthlyExpenses",
   components: {},
   data() {
     return {

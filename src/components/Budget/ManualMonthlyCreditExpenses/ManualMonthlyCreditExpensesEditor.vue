@@ -31,7 +31,7 @@
 import axios from "axios";
 
 export default {
-  name: "ManualMonthlyCreditExpenses",
+  name: "ManualMonthlyCreditExpensesEditor",
   components: {},
   data() {
     return {

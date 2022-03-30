@@ -7,12 +7,11 @@
 import axios from "axios";
 
 export default {
-  name: "ManualMonthlyExpenses",
+  name: "ManualMonthlyExpensesEditor",
   components: {},
   data() {
     return {
       masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
-
     };
   },
   props: ["globalMasMonthlyExpensesId"],

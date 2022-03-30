@@ -1,12 +1,10 @@
 
 // store.js
-// import { reactive } from 'vue'
+import { reactive } from 'vue'
 
-// export const store = reactive({
-//   count: 0
-// })
-
-
+export var store = reactive({
+  count: 0
+})
 
 
 

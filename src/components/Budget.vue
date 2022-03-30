@@ -200,10 +200,13 @@ import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyE
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
-// import store from "./Budget/store.js";
+import {store} from "./Budget/store.js";
+import { createApp } from 'vue'
+
+const Budget = createApp({})
 
 export default {
-  name: "Budget",
+  // name: "Budget",
   components: {
     ManualMonthlyExpenses: ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses: ManualMonthlyCreditExpenses,
@@ -224,7 +227,7 @@ export default {
       Years: [],
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
-      // store
+      store
     };
   },
   computed: {
@@ -239,7 +242,7 @@ export default {
     this.FillYearsDropDownListModel();
   },
   mounted() {
-    // console.log(store)
+    console.log("Store Budget",store.count)
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {
@@ -340,6 +343,9 @@ export default {
     },
   },
 };
+
+Budget.component('ManualMonthlyExpensesEditor',ManualMonthlyExpensesEditor);
+
 </script>
 
 

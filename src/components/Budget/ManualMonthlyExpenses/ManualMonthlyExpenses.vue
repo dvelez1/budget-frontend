@@ -80,7 +80,6 @@
 
 <script>
 import axios from "axios";
-// import {store} from './Budget/store.js';
 
 export default {
   name: "ManualMonthlyExpenses",
@@ -96,7 +95,6 @@ export default {
         payment: "",
       },
       listmanualMonthlyExpense: [],
-      // store
     };
   },
   props: ["globalMasMonthlyExpensesId"],
@@ -190,7 +188,6 @@ export default {
     }
   },
   mounted() {
-    // console.log("Prueba",this.Test)
     this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);
   },
 };

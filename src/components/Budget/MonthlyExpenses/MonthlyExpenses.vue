@@ -67,7 +67,7 @@
 
 <script>
 import axios from "axios";
-//  import store from './Budget/store.js';
+//import {store} from './Budget/store.js';
 
 export default {
   name: "MonthlyExpenses",

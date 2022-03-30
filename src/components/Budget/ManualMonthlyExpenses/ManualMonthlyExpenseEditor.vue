@@ -28,8 +28,9 @@
 </template>
 
 <script>
-// import Budget from './components/Budget.vue'
+
 import axios from "axios";
+// import {store} from "./Budget/store.js";
 
 export default {
   name: "ManualMonthlyExpenseEditor",
@@ -45,6 +46,7 @@ export default {
         masMonthlyExpensesId: "",
         budget: "",
         payment: "",
+        // store
       },
     };
   },
@@ -57,7 +59,7 @@ export default {
       this.manualMonthlyExpense.payment = Number(this.manualMonthlyExpense.payment);
       this.manualMonthlyExpense.masMonthlyExpensesId = this.masMonthlyExpensesId;
       const manualMonthlyExpense = this.manualMonthlyExpense;
-    
+
       axios
         .post("https://localhost:44359/api/ManualMonthlyExpenses/",manualMonthlyExpense)
         .then(() => {
@@ -76,7 +78,7 @@ export default {
     },
   },
   mounted() {
-    
+    //  console.log("Second Store", store.count)
   },
 };
 </script>

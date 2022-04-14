@@ -113,7 +113,7 @@
                         &nbsp;
                         <button
                           class="btn btn-secondary btn-sm mt-2"
-                          v-on:click="resetControls()"
+                          v-on:click="ResetControls()"
                           type="button"
                         >
                           Reset
@@ -172,14 +172,15 @@
                 "
               />
             </div>
+
             <div v-if="ManualMonthlyCreditExpensesEditor">
               <ManualMonthlyCreditExpensesEditor
                 :globalMasMonthlyExpensesId="
-                  masMonthlyExpense.masMonthlyExpensesId
-                "
+                  masMonthlyExpense.masMonthlyExpensesId"
+
                 @SetManualMonthlyCreditExpensesEditorProperty="
-                  SetManualMonthlyCreditExpensesEditorProperty($event)
-                "
+                  SetManualMonthlyCreditExpensesEditorProperty($event)"
+               
               />
             </div>
          
@@ -336,9 +337,19 @@ export default {
     SetManualMonthlyCreditExpensesEditorProperty(value) {
       this.ManualMonthlyCreditExpensesEditor = value;
     },
-    resetControls() {
+    ResetControls() {
       // TODO: Pending Implementation
     },
+    ReloadBudgetScreen(value){
+      console.log(value)
+      this.masMonthlyExpense.year = 2021;
+      this.masMonthlyExpense.month = 1;
+      this.masMonthlyExpense.biweeklyNumber = 1;
+      this.GetMasMonthlyExpensesByParameters();
+    },
+    TestMethod(value){
+      console.log("ValorEmit",value)
+    }
   },
 };
 </script>

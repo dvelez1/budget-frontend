@@ -43,6 +43,12 @@ export default {
         cost: "",
         payment: "",
       },
+      testModel:{
+        booleanResult: false,
+        year:2021,
+        month:1,
+        biweeklyNumber:1
+      }
     };
   },
   props: ["globalMasMonthlyExpensesId"],
@@ -55,6 +61,7 @@ export default {
       this.manualMonthlyCreditExpense.masMonthlyExpensesId = this.masMonthlyExpensesId;
 
       const manualMonthlyCreditExpense = this.manualMonthlyCreditExpense;
+
       axios
         .post("https://localhost:44359/api/ManualMonthlyCreditExpenses/", manualMonthlyCreditExpense)
         .then(() => {
@@ -69,7 +76,10 @@ export default {
         });
     },
     RedirectToBudget() {
-      this.$emit("SetManualMonthlyCreditExpensesEditorProperty",false);
+      this.$emit("SetManualMonthlyCreditExpensesEditorProperty",false); 
+      // alert("voy a emit")
+      // this.$emit("TestMethod",this.testModel); 
+      //  alert("termine a emit")
     },
   },
   mounted() {

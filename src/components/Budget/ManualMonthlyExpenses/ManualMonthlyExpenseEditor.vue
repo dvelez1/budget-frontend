@@ -30,12 +30,11 @@
 <script>
 
 import axios from "axios";
-// import {store} from "./Budget/store.js";
 
 export default {
   name: "ManualMonthlyExpenseEditor",
   components: {
-    //  Budget
+
   },
   data() {
     return {
@@ -46,12 +45,29 @@ export default {
         masMonthlyExpensesId: "",
         budget: "",
         payment: "",
-        // store
       },
     };
   },
   props: ["globalMasMonthlyExpensesId"],
   methods: {
+    GetManualMonthlyExpenses(masMonthlyExpensesId) {
+      this.loading = true;
+      axios
+        .get("https://localhost:44359/api/ManualMonthlyExpenses/", {
+          params: {
+            masMonthlyExpensesId: masMonthlyExpensesId,
+          },
+        })
+        .then((response) => {
+          this.loading = false;
+          this.listmanualMonthlyExpense = response.data;
+          console.log("Success!");
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
+    },
     CreatetManualMonthlyExpenses() {
       this.loading = true;
       this.manualMonthlyExpense.manualMonthlyExpensesId = Number(this.manualMonthlyExpense.manualMonthlyExpensesId);
@@ -59,14 +75,13 @@ export default {
       this.manualMonthlyExpense.payment = Number(this.manualMonthlyExpense.payment);
       this.manualMonthlyExpense.masMonthlyExpensesId = this.masMonthlyExpensesId;
       const manualMonthlyExpense = this.manualMonthlyExpense;
-
       axios
         .post("https://localhost:44359/api/ManualMonthlyExpenses/",manualMonthlyExpense)
         .then(() => {
           this.loading = false;
-          this.GetManualMonthlyExpensesByMasMonthlyExpensesId(this.masMonthlyExpensesId);
-          alert("Success!");
-          this.RedirectToBudget();
+          // this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);
+          alert("success!");
+          // this.RedirectToBudget();
         })
         .catch((error) => {
           console.error(error);
@@ -78,7 +93,7 @@ export default {
     },
   },
   mounted() {
-    //  console.log("Second Store", store.count)
+     console.log("Second Store",  this.globalMasMonthlyExpensesId)
   },
 };
 </script>

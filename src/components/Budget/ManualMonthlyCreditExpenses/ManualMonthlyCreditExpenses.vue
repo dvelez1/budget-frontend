@@ -119,7 +119,6 @@ export default {
         .then((response) => {
           this.loading = false;
           this.listmanualMonthlyCreditExpenses = response.data;
-          console.log("Success!");
         })
         .catch((error) => {
           console.error(error);
@@ -157,7 +156,7 @@ export default {
         .then((response) => {
           this.loading = false;
           this.manualMonthlyCreditExpense = response.data;
-          alert("success!");
+          this.GetManualMonthlyCreditExpenses(this.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.log(error);

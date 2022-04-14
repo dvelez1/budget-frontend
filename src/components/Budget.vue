@@ -31,12 +31,7 @@
                         </div>
                       </div>
                       <hr />
-                      <!--<h6>Year</h6>
-                     <select class="form-select">
-                      <option selected>Select Year</option>
-                      <option value="1">2021</option>
-                      <option value="2">2022</option>
-                    </select> -->
+
                       <div class="form-group">
                         <label for="year"><h6>Year</h6></label>
                         <select
@@ -164,8 +159,10 @@
                   />
                 </div>
               </div>
+
             </div>
-            <div v-show="ManualMonthlyExpensesEditor">
+
+            <div v-if="ManualMonthlyExpensesEditor">
               <ManualMonthlyExpensesEditor
                 :globalMasMonthlyExpensesId="
                   masMonthlyExpense.masMonthlyExpensesId
@@ -175,7 +172,7 @@
                 "
               />
             </div>
-            <div v-show="ManualMonthlyCreditExpensesEditor">
+            <div v-if="ManualMonthlyCreditExpensesEditor">
               <ManualMonthlyCreditExpensesEditor
                 :globalMasMonthlyExpensesId="
                   masMonthlyExpense.masMonthlyExpensesId
@@ -185,34 +182,35 @@
                 "
               />
             </div>
+         
           </div>
         </div>
       </div>
     </div>
   </div>
-  <br />
 </template>
 
 <script>
 import axios from "axios";
+// import {store} from "./Budget/store.js";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
-import {store} from "./Budget/store.js";
-import { createApp } from 'vue'
 
-const Budget = createApp({})
+// import { createApp } from 'vue'
+
+// const Budget = createApp({})
 
 export default {
   // name: "Budget",
   components: {
-    ManualMonthlyExpenses: ManualMonthlyExpenses,
-    ManualMonthlyCreditExpenses: ManualMonthlyCreditExpenses,
-    MonthlyExpenses: MonthlyExpenses,
-    ManualMonthlyExpensesEditor: ManualMonthlyExpensesEditor,
-    ManualMonthlyCreditExpensesEditor: ManualMonthlyCreditExpensesEditor,
+    ManualMonthlyExpenses,
+    ManualMonthlyCreditExpenses,
+    MonthlyExpenses,
+    ManualMonthlyExpensesEditor,
+    ManualMonthlyCreditExpensesEditor,
   },
   data() {
     return {
@@ -227,7 +225,7 @@ export default {
       Years: [],
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
-      store
+      // store
     };
   },
   computed: {
@@ -242,7 +240,7 @@ export default {
     this.FillYearsDropDownListModel();
   },
   mounted() {
-    console.log("Store Budget",store.count)
+    // console.log("Store Budget",store.count)
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {
@@ -343,9 +341,6 @@ export default {
     },
   },
 };
-
-Budget.component('ManualMonthlyExpensesEditor',ManualMonthlyExpensesEditor);
-
 </script>
 
 

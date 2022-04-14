@@ -111,43 +111,13 @@ export default {
         .then((response) => {
           this.loading = false;
           this.listmanualMonthlyExpense = response.data;
-           console.log("Success!");
+          console.log("Success!");
         })
         .catch((error) => {
           console.error(error);
           this.loading = false;
         });
     },
-    // CreatetManualMonthlyExpenses() {
-    //   this.loading = true;
-    //   this.manualMonthlyExpense.manualMonthlyExpensesId = Number(
-    //     this.manualMonthlyExpense.manualMonthlyExpensesId
-    //   );
-    //   this.manualMonthlyExpense.budget = Number(
-    //     this.manualMonthlyExpense.budget
-    //   );
-    //   this.manualMonthlyExpense.payment = Number(
-    //     this.manualMonthlyExpense.payment
-    //   );
-
-    //   const manualMonthlyExpense = this.manualMonthlyExpense;
-    //   axios
-    //     .post(
-    //       "https://localhost:44359/api/ManualMonthlyExpenses/",
-    //       manualMonthlyExpense
-    //     )
-    //     .then(() => {
-    //       this.loading = false;
-    //       this.GetManualMonthlyExpensesByMasMonthlyExpensesId(
-    //         this.masMonthlyExpense.masMonthlyExpensesId
-    //       );
-    //        alert("Success!");
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //       this.loading = false;
-    //     });
-    // },
     UpdateManualMonthlyExpenses(manualMonthlyExpensesId, manualMonthlyExpense) {
       this.loading = true;
       axios
@@ -159,7 +129,7 @@ export default {
         .then((response) => {
           this.loading = false;
           this.manualMonthlyExpense = response.data;
-           alert("Success!");
+          alert("Success!");
         })
         .catch((error) => {
           console.error(error);
@@ -176,16 +146,16 @@ export default {
         .then((response) => {
           this.loading = false;
           this.manualMonthlyExpense = response.data;
-           alert("Success!");
+          alert("Success!");
         })
         .catch((error) => {
           console.log(error);
           this.loading = false;
         });
     },
-    Add(){
-      this.$emit("SetManualMonthlyExpensesEditorProperty",true);
-    }
+    Add() {
+      this.$emit("SetManualMonthlyExpensesEditorProperty", true);
+    },
   },
   mounted() {
     this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);

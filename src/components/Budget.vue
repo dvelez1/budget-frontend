@@ -178,8 +178,8 @@
                 :globalMasMonthlyExpensesId="
                   masMonthlyExpense.masMonthlyExpensesId"
 
-                @SetManualMonthlyCreditExpensesEditorProperty="
-                  SetManualMonthlyCreditExpensesEditorProperty($event)"
+                @EmitResultFromManualMonthlyCreditExpensesEditor="
+                  EmitResultFromManualMonthlyCreditExpensesEditor($event)"
                
               />
             </div>
@@ -242,6 +242,7 @@ export default {
   },
   mounted() {
     // console.log("Store Budget",store.count)
+    console.log("mount")
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {
@@ -347,8 +348,9 @@ export default {
       this.masMonthlyExpense.biweeklyNumber = 1;
       this.GetMasMonthlyExpensesByParameters();
     },
-    TestMethod(value){
-      console.log("ValorEmit",value)
+    EmitResultFromManualMonthlyCreditExpensesEditor(value){
+      this.SetManualMonthlyCreditExpensesEditorProperty = value.booleanResult;
+      this.ReloadBudgetScreen(value);
     }
   },
 };

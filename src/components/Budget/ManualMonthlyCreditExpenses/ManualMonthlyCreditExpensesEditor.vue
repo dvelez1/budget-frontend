@@ -19,6 +19,7 @@
                 <input v-model="manualMonthlyCreditExpense.payment" type="number" class="form-control"  />
               </div>
               <button type="submit" class="btn btn-primary" v-on:Click="CreateManualMonthlyCreditExpenses()">Submit</button>
+              <button type="submit" class="btn btn-primary" v-on:Click="RedirectToBudget()">reset</button>
             </form>
           </div>
         </div>
@@ -43,7 +44,7 @@ export default {
         cost: "",
         payment: "",
       },
-      testModel:{
+      resultModelToEmit:{
         booleanResult: false,
         year:2021,
         month:1,
@@ -76,10 +77,7 @@ export default {
         });
     },
     RedirectToBudget() {
-      this.$emit("SetManualMonthlyCreditExpensesEditorProperty",false); 
-      // alert("voy a emit")
-      // this.$emit("TestMethod",this.testModel); 
-      //  alert("termine a emit")
+      this.$emit("EmitResultFromManualMonthlyCreditExpensesEditor",this.resultModelToEmit); 
     },
   },
   mounted() {

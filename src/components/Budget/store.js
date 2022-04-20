@@ -1,26 +1,23 @@
 
-// store.js
-import { reactive } from 'vue'
+//store.js
+import { reactive, computed } from 'vue'
 
-export var store = reactive({
-  count: 0
-})
+const store = {
+  debug: true,
 
+  state: reactive({
+    message: 'Hello!',
+    val: 1,
+    message2: computed(() => store.state.val + 1),
+  }),
 
+  increment() {
+    this.state.val++
+  }
 
-// const store = {
-//   state: {
-//     test: "666",
-//     masMonthlyExpense: {
-//       masMonthlyExpensesId: "",
-//       year: "",
-//       month: "",
-//       income: "",
-//       biweeklyNumber: "",
-//     },
-//   }
-// };
+}
 
+export {store}
 
 
 

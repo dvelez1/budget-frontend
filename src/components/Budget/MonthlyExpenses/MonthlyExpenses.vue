@@ -85,6 +85,7 @@ export default {
         budget: "",
       },
       listMonthlyExpense: [],
+      state: this.$store.state,
     };
   },
   props: ["globalMasMonthlyExpensesId"],
@@ -128,6 +129,7 @@ export default {
   },
   mounted() {
     this.GetMonthlyExpenses(this.masMonthlyExpensesId);
+    console.log("mounted hijo", this.state)
   },
 };
 </script>

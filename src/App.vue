@@ -44,6 +44,7 @@
 <script>
 // import Budget from './components/Budget.vue'
 
+
 export default {
   name: "App",
   components: {

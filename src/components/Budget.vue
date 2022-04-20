@@ -168,8 +168,7 @@
                   masMonthlyExpense.masMonthlyExpensesId
                 "
                 @SetManualMonthlyExpensesEditorProperty="
-                  SetManualMonthlyExpensesEditorProperty($event)
-                "
+                  SetManualMonthlyExpensesEditorProperty($event)"
               />
             </div>
 
@@ -193,19 +192,13 @@
 
 <script>
 import axios from "axios";
-// import {store} from "./Budget/store.js";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
 
-// import { createApp } from 'vue'
-
-// const Budget = createApp({})
-
 export default {
-  // name: "Budget",
   components: {
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
@@ -226,7 +219,7 @@ export default {
       Years: [],
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
-      // store
+      state: this.$store.state, // Add store
     };
   },
   computed: {
@@ -242,7 +235,7 @@ export default {
   },
   mounted() {
     // console.log("Store Budget",store.count)
-    console.log("mount")
+    console.log("mount", this.state)
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {

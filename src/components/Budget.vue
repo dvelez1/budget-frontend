@@ -159,7 +159,6 @@
                   />
                 </div>
               </div>
-
             </div>
 
             <div v-if="ManualMonthlyExpensesEditor">
@@ -168,21 +167,20 @@
                   masMonthlyExpense.masMonthlyExpensesId
                 "
                 @SetManualMonthlyExpensesEditorProperty="
-                  SetManualMonthlyExpensesEditorProperty($event)"
+                  SetManualMonthlyExpensesEditorProperty($event)
+                "
               />
             </div>
 
-            <div v-if="ManualMonthlyCreditExpensesEditor">
-              <ManualMonthlyCreditExpensesEditor
-                :globalMasMonthlyExpensesId="
-                  masMonthlyExpense.masMonthlyExpensesId"
-
-                @EmitResultFromManualMonthlyCreditExpensesEditor="
-                  EmitResultFromManualMonthlyCreditExpensesEditor($event)"
-               
-              />
-            </div>
-         
+            <ManualMonthlyCreditExpensesEditor
+              :globalMasMonthlyExpensesId="
+                masMonthlyExpense.masMonthlyExpensesId
+              "
+              @SetManualMonthlyCreditExpensesEditorProperty="
+                SetManualMonthlyCreditExpensesEditorProperty($event)
+              "
+              v-if="ManualMonthlyCreditExpensesEditor"
+            />
           </div>
         </div>
       </div>
@@ -219,7 +217,7 @@ export default {
       Years: [],
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
-      state: this.$store.state, // Add store
+      Shared: this.$store, // Add store
     };
   },
   computed: {
@@ -235,7 +233,11 @@ export default {
   },
   mounted() {
     // console.log("Store Budget",store.count)
-    console.log("mount", this.state)
+    if (this.Shared.state.masMonthlyExpense)
+      this.masMonthlyExpense = this.Shared.state.masMonthlyExpense;
+
+    console.log("mount", this.Shared.state.masMonthlyExpense);
+    alert("mount")
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {
@@ -334,17 +336,24 @@ export default {
     ResetControls() {
       // TODO: Pending Implementation
     },
-    ReloadBudgetScreen(value){
-      console.log(value)
+    ReloadBudgetScreen(value) {
+      console.log(value);
       this.masMonthlyExpense.year = 2021;
       this.masMonthlyExpense.month = 1;
       this.masMonthlyExpense.biweeklyNumber = 1;
       this.GetMasMonthlyExpensesByParameters();
     },
-    EmitResultFromManualMonthlyCreditExpensesEditor(value){
-      this.SetManualMonthlyCreditExpensesEditorProperty = value.booleanResult;
-      this.ReloadBudgetScreen(value);
-    }
+  },
+  watch: {
+    masMonthlyExpense: {
+      handler(newValue, oldValue) {
+        if (newValue != oldValue) {
+          this.Shared.setMasMonnthlyExpense(newValue);
+          alert("watch")
+        }
+      },
+      deep: true,
+    },
   },
 };
 </script>

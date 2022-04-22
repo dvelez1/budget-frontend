@@ -128,8 +128,7 @@
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
                   <MonthlyExpenses
                     :globalMasMonthlyExpensesId="
-                      masMonthlyExpense.masMonthlyExpensesId
-                    "
+                      masMonthlyExpense.masMonthlyExpensesId"
                   />
                 </div>
               </div>
@@ -137,13 +136,10 @@
               <div class="row mt-2">
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
                   <ManualMonthlyCreditExpenses
-                    :globalMasMonthlyExpensesId="
-                      masMonthlyExpense.masMonthlyExpensesId
-                    "
-                    @SetManualMonthlyCreditExpensesEditorProperty="
-                      SetManualMonthlyCreditExpensesEditorProperty($event)
-                    "
-                  />
+                    :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"
+
+                    @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"
+                    ref="ManualMonthlyCreditExpenses"/>
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
@@ -154,8 +150,9 @@
                       masMonthlyExpense.masMonthlyExpensesId
                     "
                     @SetManualMonthlyExpensesEditorProperty="
-                      SetManualMonthlyExpensesEditorProperty($event)
-                    "
+                      SetManualMonthlyExpensesEditorProperty($event)"
+
+                      ref="ManualMonthlyExpenses"
                   />
                 </div>
               </div>
@@ -181,7 +178,6 @@
               "
               v-if="ManualMonthlyCreditExpensesEditor"
             />
-            
           </div>
         </div>
       </div>
@@ -232,16 +228,7 @@ export default {
   created() {
     this.FillYearsDropDownListModel();
   },
-  mounted() {
-    // console.log("Store Budget",store.count)
-    if (this.Shared.state.masMonthlyExpense && this.Shared.state.masMonthlyExpense >0){
-      console.log("mount con data budget", this.Shared.state.masMonthlyExpense);
-      this.masMonthlyExpense = this.Shared.state.masMonthlyExpense;
-      }
-
-    console.log("mount", this.Shared.state.masMonthlyExpense);
-   
-  },
+  mounted() {},
   methods: {
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
@@ -332,9 +319,19 @@ export default {
     },
     SetManualMonthlyExpensesEditorProperty(value) {
       this.ManualMonthlyExpensesEditor = value;
+      if (value == false) {
+        this.$refs.ManualMonthlyExpenses.GetManualMonthlyExpenses(
+          Number(this.masMonthlyExpense.masMonthlyExpensesId)
+        );
+      }
     },
-    SetManualMonthlyCreditExpensesEditorProperty(value) { 
+    SetManualMonthlyCreditExpensesEditorProperty(value) {
       this.ManualMonthlyCreditExpensesEditor = value;
+      if (value == false) {
+        this.$refs.ManualMonthlyCreditExpenses.GetManualMonthlyCreditExpenses(
+          Number(this.masMonthlyExpense.masMonthlyExpensesId)
+        );
+      }
     },
     ResetControls() {
       // TODO: Pending Implementation
@@ -348,15 +345,15 @@ export default {
     },
   },
   watch: {
-  //   masMonthlyExpense: {
-  //     handler(newValue, oldValue) {
-  //       if (newValue != oldValue) {
-  //         this.Shared.setMasMonnthlyExpense(newValue);
-  //         alert("watch")
-  //       }
-  //     },
-  //     deep: true,
-  //   },
+    //   masMonthlyExpense: {
+    //     handler(newValue, oldValue) {
+    //       if (newValue != oldValue) {
+    //         this.Shared.setMasMonnthlyExpense(newValue);
+    //         alert("watch")
+    //       }
+    //     },
+    //     deep: true,
+    //   },
   },
 };
 </script>

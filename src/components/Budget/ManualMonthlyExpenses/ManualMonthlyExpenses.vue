@@ -147,6 +147,7 @@ export default {
           this.loading = false;
           this.manualMonthlyExpense = response.data;
           alert("Success!");
+          this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.log(error);

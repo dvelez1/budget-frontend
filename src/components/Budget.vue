@@ -181,6 +181,7 @@
               "
               v-if="ManualMonthlyCreditExpensesEditor"
             />
+            
           </div>
         </div>
       </div>
@@ -233,11 +234,13 @@ export default {
   },
   mounted() {
     // console.log("Store Budget",store.count)
-    if (this.Shared.state.masMonthlyExpense)
+    if (this.Shared.state.masMonthlyExpense && this.Shared.state.masMonthlyExpense >0){
+      console.log("mount con data budget", this.Shared.state.masMonthlyExpense);
       this.masMonthlyExpense = this.Shared.state.masMonthlyExpense;
+      }
 
     console.log("mount", this.Shared.state.masMonthlyExpense);
-    alert("mount")
+   
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {
@@ -330,7 +333,7 @@ export default {
     SetManualMonthlyExpensesEditorProperty(value) {
       this.ManualMonthlyExpensesEditor = value;
     },
-    SetManualMonthlyCreditExpensesEditorProperty(value) {
+    SetManualMonthlyCreditExpensesEditorProperty(value) { 
       this.ManualMonthlyCreditExpensesEditor = value;
     },
     ResetControls() {
@@ -345,15 +348,15 @@ export default {
     },
   },
   watch: {
-    masMonthlyExpense: {
-      handler(newValue, oldValue) {
-        if (newValue != oldValue) {
-          this.Shared.setMasMonnthlyExpense(newValue);
-          alert("watch")
-        }
-      },
-      deep: true,
-    },
+  //   masMonthlyExpense: {
+  //     handler(newValue, oldValue) {
+  //       if (newValue != oldValue) {
+  //         this.Shared.setMasMonnthlyExpense(newValue);
+  //         alert("watch")
+  //       }
+  //     },
+  //     deep: true,
+  //   },
   },
 };
 </script>

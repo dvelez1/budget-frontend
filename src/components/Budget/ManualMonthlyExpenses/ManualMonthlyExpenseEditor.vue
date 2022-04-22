@@ -18,7 +18,7 @@
                 <label class="form-label">Payment</label>
                 <input v-model="manualMonthlyExpense.payment" type="number" class="form-control"  />
               </div>
-              <button type="submit" class="btn btn-primary" v-on:Click="CreatetManualMonthlyExpenses()">Submit</button>
+              <button type="submit" class="btn btn-primary" v-on:Click.prevent="CreatetManualMonthlyExpenses()">Submit</button>
             </form>
           </div>
         </div>
@@ -77,11 +77,11 @@ export default {
       const manualMonthlyExpense = this.manualMonthlyExpense;
       axios
         .post("https://localhost:44359/api/ManualMonthlyExpenses/",manualMonthlyExpense)
-        .then(() => {
+        .then((response) => {
           this.loading = false;
-          // this.GetManualMonthlyExpenses(this.masMonthlyExpensesId);
+          console.log(response.data);
           alert("success!");
-          // this.RedirectToBudget();
+          this.RedirectToBudget();
         })
         .catch((error) => {
           console.error(error);
@@ -93,7 +93,7 @@ export default {
     },
   },
   mounted() {
-     console.log("Second Store",  this.globalMasMonthlyExpensesId)
+     
   },
 };
 </script>

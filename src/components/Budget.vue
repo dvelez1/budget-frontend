@@ -23,11 +23,13 @@
                           </h5>
                         </div>
                         <div class="col-sm-1">
-                          <input
-                            class="btn btn-dark btn-sm float-end"
-                            type="button"
-                            value="Add"
-                          />
+                        <button
+                          class="btn btn-dark btn-sm mt-2"
+                          v-on:click="SetCreateBudgetMasterRulesProperty(true)"
+                          type="button"
+                        >
+                          Add Master Rule
+                        </button>
                         </div>
                       </div>
                       <hr />
@@ -158,6 +160,7 @@
               </div>
             </div>
 
+            <!-- Add New Manual Monthly Expense -->
             <div v-if="ManualMonthlyExpensesEditor">
               <ManualMonthlyExpensesEditor
                 :globalMasMonthlyExpensesId="
@@ -169,6 +172,7 @@
               />
             </div>
 
+            <!-- Add New Manual Credit Expense -->
             <ManualMonthlyCreditExpensesEditor
               :globalMasMonthlyExpensesId="
                 masMonthlyExpense.masMonthlyExpensesId
@@ -178,6 +182,13 @@
               "
               v-if="ManualMonthlyCreditExpensesEditor"
             />
+
+            <!-- Create Budget Master Rules -->
+            <MasMonthlyExpensesEditor
+
+              @SetCreateBudgetMasterRulesProperty="SetCreateBudgetMasterRulesProperty($event)"
+              v-if="CreateBudgetMasterRulesEditor"
+              ref="MasMonthlyExpensesEditor"/>
           </div>
         </div>
       </div>
@@ -192,6 +203,7 @@ import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyE
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
+import MasMonthlyExpensesEditor from "./Budget/MasMonthlyExpenses/MasMonthlyExpensesEditor.vue";
 
 export default {
   components: {
@@ -200,6 +212,7 @@ export default {
     MonthlyExpenses,
     ManualMonthlyExpensesEditor,
     ManualMonthlyCreditExpensesEditor,
+    MasMonthlyExpensesEditor
   },
   data() {
     return {
@@ -214,15 +227,24 @@ export default {
       Years: [],
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
+      CreateBudgetMasterRulesEditor:false,
       Shared: this.$store, // Add store
     };
   },
   computed: {
     DisplayMainScreen() {
-      return (
-        this.ManualMonthlyExpensesEditor == false &&
-        this.ManualMonthlyCreditExpensesEditor == false
-      );
+
+      // return (
+      //   this.ManualMonthlyExpensesEditor == false &&
+      //   this.ManualMonthlyCreditExpensesEditor == false &&
+      //   this.CreateBudgetMasterRulesEditor == false
+      // );
+
+      let result = this.ManualMonthlyExpensesEditor == false &&
+       this.ManualMonthlyCreditExpensesEditor == false &&
+      this.CreateBudgetMasterRulesEditor == false;
+
+      return result;
     },
   },
   created() {
@@ -332,6 +354,10 @@ export default {
           Number(this.masMonthlyExpense.masMonthlyExpensesId)
         );
       }
+    },
+    SetCreateBudgetMasterRulesProperty(value) {
+       this.CreateBudgetMasterRulesEditor = value;
+       //Access by ref Master Rules, to refresh or trigger my page
     },
     ResetControls() {
       // TODO: Pending Implementation

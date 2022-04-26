@@ -18,8 +18,10 @@
                 <label   class="form-label">Payment</label>
                 <input v-model="manualMonthlyCreditExpense.payment" type="number" class="form-control"  />
               </div>
-              <button type="submit" class="btn btn-primary" v-on:Click.prevent="CreateManualMonthlyCreditExpenses()">Submit</button>
-              <button type="submit" class="btn btn-primary" v-on:Click="RedirectToBudget()">reset</button>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary" v-on:Click.prevent="CreateManualMonthlyCreditExpenses()">Submit</button>
+                <button type="submit" class="btn btn-secondary" v-on:Click="RedirectToBudget()">Reset</button>
+              </div>
             </form>
           </div>
         </div>

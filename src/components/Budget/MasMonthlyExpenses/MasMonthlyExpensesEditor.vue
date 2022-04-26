@@ -34,7 +34,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "MasMonthlyExpensesEditor",
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       masMonthlyExpense: {
-        masMonthlyExpensesId: "",
+        masMonthlyExpensesId: 0,
         year: "",
         month: "",
         income: "",
@@ -53,7 +53,22 @@ export default {
   props: ["globalMasMonthlyExpensesId"],
   methods: {
     createMasterRule(){
-     
+     this.loading = true;
+      const masMonthlyExpense = this.masMonthlyExpense;
+      axios.post(
+          "https://localhost:44359/api/MasMonthlyExpenses/CreateMasMonthlyExpenses/",
+          masMonthlyExpense
+        )
+        .then((response) => {
+          this.loading = false;
+          console.log(response.data);
+          alert("success Create!");
+           this.redirectToBudget()
+        })
+        .catch((error) => {
+          console.error(error);
+          this.loading = false;
+        });
     },
     redirectToBudget() {
       this.$emit("SetCreateBudgetMasterRulesProperty",false); 

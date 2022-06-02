@@ -1,13 +1,23 @@
 <template>
-  <h1>About Page</h1>
-  <!-- <h1>counter: {{counterStore.counter}}</h1> -->
+  <h1>About Page:</h1>
+  <h1>counter:{{counterStore.counter}} </h1>
 </template>
 
-<script lang="js" setup>
+<script>
 
+import {useCounterStore} from "../stores/counter.js";
 
-//  import {useCounterStore} from "../stores/counter";
-//  const counterStore = useCounterStore();
+export default {
+  setup() {
+    var counterStore = useCounterStore();
+    counterStore.incrementBy(2);
+
+     return {
+      counterStore
+    }
+
+  },
+}
 
 
 

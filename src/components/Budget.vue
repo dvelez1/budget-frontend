@@ -185,7 +185,6 @@
 
             <!-- Create Budget Master Rules -->
             <MasMonthlyExpensesEditor
-
               @SetCreateBudgetMasterRulesProperty="SetCreateBudgetMasterRulesProperty($event)"
               v-if="CreateBudgetMasterRulesEditor"
               ref="MasMonthlyExpensesEditor"/>
@@ -228,7 +227,7 @@ export default {
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
       CreateBudgetMasterRulesEditor:false,
-      Shared: this.$store, // Add store
+      Shared: this.$store, // Add Custom Store Example
     };
   },
   computed: {
@@ -360,27 +359,11 @@ export default {
        //Access by ref Master Rules, to refresh or trigger my page
     },
     ResetControls() {
-      // TODO: Pending Implementation
-    },
-    ReloadBudgetScreen(value) {
-      console.log(value);
-      this.masMonthlyExpense.year = 2021;
-      this.masMonthlyExpense.month = 1;
-      this.masMonthlyExpense.biweeklyNumber = 1;
-      this.GetMasMonthlyExpensesByParameters();
+      // Refresh Budget Page
+      this.$router.go()
     },
   },
-  watch: {
-    //   masMonthlyExpense: {
-    //     handler(newValue, oldValue) {
-    //       if (newValue != oldValue) {
-    //         this.Shared.setMasMonnthlyExpense(newValue);
-    //         alert("watch")
-    //       }
-    //     },
-    //     deep: true,
-    //   },
-  },
+
 };
 </script>
 

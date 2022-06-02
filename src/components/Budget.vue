@@ -195,7 +195,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="js">
 import axios from "axios";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
@@ -203,6 +203,7 @@ import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMo
 import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpenses";
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
 import MasMonthlyExpensesEditor from "./Budget/MasMonthlyExpenses/MasMonthlyExpensesEditor.vue";
+
 
 export default {
   components: {
@@ -232,13 +233,6 @@ export default {
   },
   computed: {
     DisplayMainScreen() {
-
-      // return (
-      //   this.ManualMonthlyExpensesEditor == false &&
-      //   this.ManualMonthlyCreditExpensesEditor == false &&
-      //   this.CreateBudgetMasterRulesEditor == false
-      // );
-
       let result = this.ManualMonthlyExpensesEditor == false &&
        this.ManualMonthlyCreditExpensesEditor == false &&
       this.CreateBudgetMasterRulesEditor == false;
@@ -249,7 +243,9 @@ export default {
   created() {
     this.FillYearsDropDownListModel();
   },
-  mounted() {},
+  mounted() {
+    
+  },
   methods: {
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
@@ -360,7 +356,7 @@ export default {
     },
     ResetControls() {
       // Refresh Budget Page
-      this.$router.go()
+      this.$router.go();
     },
   },
 

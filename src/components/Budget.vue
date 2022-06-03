@@ -23,13 +23,15 @@
                           </h5>
                         </div>
                         <div class="col-sm-1">
-                        <button
-                          class="btn btn-dark btn-sm mt-2"
-                          v-on:click="SetCreateBudgetMasterRulesProperty(true)"
-                          type="button"
-                        >
-                          Add Master Rule
-                        </button>
+                          <button
+                            class="btn btn-dark btn-sm mt-2"
+                            v-on:click="
+                              SetCreateBudgetMasterRulesProperty(true)
+                            "
+                            type="button"
+                          >
+                            Add Master Rule
+                          </button>
                         </div>
                       </div>
                       <hr />
@@ -130,7 +132,8 @@
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
                   <MonthlyExpenses
                     :globalMasMonthlyExpensesId="
-                      masMonthlyExpense.masMonthlyExpensesId"
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
                   />
                 </div>
               </div>
@@ -138,10 +141,14 @@
               <div class="row mt-2">
                 <div v-if="masMonthlyExpense.masMonthlyExpensesId > 0">
                   <ManualMonthlyCreditExpenses
-                    :globalMasMonthlyExpensesId="masMonthlyExpense.masMonthlyExpensesId"
-
-                    @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"
-                    ref="ManualMonthlyCreditExpenses"/>
+                    :globalMasMonthlyExpensesId="
+                      masMonthlyExpense.masMonthlyExpensesId
+                    "
+                    @SetManualMonthlyCreditExpensesEditorProperty="
+                      SetManualMonthlyCreditExpensesEditorProperty($event)
+                    "
+                    ref="ManualMonthlyCreditExpenses"
+                  />
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
@@ -152,9 +159,9 @@
                       masMonthlyExpense.masMonthlyExpensesId
                     "
                     @SetManualMonthlyExpensesEditorProperty="
-                      SetManualMonthlyExpensesEditorProperty($event)"
-
-                      ref="ManualMonthlyExpenses"
+                      SetManualMonthlyExpensesEditorProperty($event)
+                    "
+                    ref="ManualMonthlyExpenses"
                   />
                 </div>
               </div>
@@ -185,9 +192,12 @@
 
             <!-- Create Budget Master Rules -->
             <MasMonthlyExpensesEditor
-              @SetCreateBudgetMasterRulesProperty="SetCreateBudgetMasterRulesProperty($event)"
+              @SetCreateBudgetMasterRulesProperty="
+                SetCreateBudgetMasterRulesProperty($event)
+              "
               v-if="CreateBudgetMasterRulesEditor"
-              ref="MasMonthlyExpensesEditor"/>
+              ref="MasMonthlyExpensesEditor"
+            />
           </div>
         </div>
       </div>
@@ -195,7 +205,7 @@
   </div>
 </template>
 
-<script setup lang="js">
+<script>
 import axios from "axios";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
@@ -204,6 +214,10 @@ import ManualMonthlyCreditExpenses from "./Budget/ManualMonthlyCreditExpenses/Ma
 import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpenses/ManualMonthlyCreditExpensesEditor.vue";
 import MasMonthlyExpensesEditor from "./Budget/MasMonthlyExpenses/MasMonthlyExpensesEditor.vue";
 
+// Import budget store with pinia
+import {useBudgetrStore} from "../stores/budget.js";
+// Required to use pinia store without setup()
+import { mapStores } from 'pinia'
 
 export default {
   components: {
@@ -239,12 +253,16 @@ export default {
 
       return result;
     },
+    // Set budget Store without setup
+     ...mapStores(useBudgetrStore)
   },
   created() {
     this.FillYearsDropDownListModel();
   },
   mounted() {
-    
+    console.log("useBudgetrStore",this.budgetStore.resetFlag)
+    this.budgetStore.setresetFlag(true)
+    console.log("set to true",this.budgetStore.resetFlag )
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {

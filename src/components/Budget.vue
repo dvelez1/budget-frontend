@@ -215,11 +215,12 @@ import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpen
 import MasMonthlyExpensesEditor from "./Budget/MasMonthlyExpenses/MasMonthlyExpensesEditor.vue";
 
 // Import budget store with pinia
-import {useBudgetrStore} from "../stores/budget.js";
+import {useBudgetStore} from "../stores/budget.js";
 // Required to use pinia store without setup()
 import { mapStores } from 'pinia'
 
 export default {
+  name:"Budget",
   components: {
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
@@ -254,13 +255,13 @@ export default {
       return result;
     },
     // Set budget Store without setup
-     ...mapStores(useBudgetrStore)
+     ...mapStores(useBudgetStore)
   },
   created() {
     this.FillYearsDropDownListModel();
   },
   mounted() {
-    console.log("useBudgetrStore",this.budgetStore.resetFlag)
+    console.log("useBudgetStore",this.budgetStore.resetFlag)
     this.budgetStore.setresetFlag(true)
     console.log("set to true",this.budgetStore.resetFlag )
   },

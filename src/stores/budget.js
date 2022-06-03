@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useBudgetrStore = defineStore('budget', {
+export const useBudgetStore = defineStore('budget', {
     // other options...
     state: () => ({
         masMonthlyExpense: {

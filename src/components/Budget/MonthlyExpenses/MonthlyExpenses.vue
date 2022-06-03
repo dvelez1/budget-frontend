@@ -67,11 +67,14 @@
 
 <script>
 import axios from "axios";
-//import {store} from './Budget/store.js';
+
+// Import budget store with pinia
+import { useBudgetStore } from "/src/stores/budget.js"; 
+// Required to use pinia store without setup()
+import { mapStores } from "pinia";
 
 export default {
   name: "MonthlyExpenses",
-  components: {},
   data() {
     return {
       // shareState: store,
@@ -90,7 +93,7 @@ export default {
   props: ["globalMasMonthlyExpensesId"],
   methods: {
     GetMonthlyExpenses(masMonthlyExpensesId) {
-      console.log("Get Operation ID:", masMonthlyExpensesId)
+      console.log("Get Operation ID:", masMonthlyExpensesId);
       this.loading = true;
       axios
         .get("https://localhost:44359/api/MonthlyExpenses/", {
@@ -101,7 +104,7 @@ export default {
         .then((response) => {
           this.loading = false;
           this.listMonthlyExpense = response.data;
-          console.log("MonthlyExpenses Success")
+          console.log("MonthlyExpenses Success");
         })
         .catch((error) => {
           console.error(error);
@@ -126,8 +129,13 @@ export default {
         });
     },
   },
+  computed: {
+    //Set budget Store without setup
+    ...mapStores(useBudgetStore),
+  },
   mounted() {
     this.GetMonthlyExpenses(this.masMonthlyExpensesId);
+    console.log("useBudgetrStore",this.budgetStore.resetFlag)
   },
 };
 </script>

@@ -153,15 +153,8 @@
 
             <!-- Add New Manual Credit Expense -->
             <ManualMonthlyCreditExpensesEditor
-              :globalMasMonthlyExpensesId="
-                budgetStore.masMonthlyExpense.masMonthlyExpensesId
-              "
-              @SetManualMonthlyCreditExpensesEditorProperty="
-                SetManualMonthlyCreditExpensesEditorProperty($event)
-              "
-              v-if="budgetStore.ManualMonthlyCreditExpensesEditor"
-            />
-
+              @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"
+              v-if="budgetStore.ManualMonthlyCreditExpensesEditor"/>
             <!-- Add New Manual Monthly Expense -->
             <div v-if="budgetStore.ManualMonthlyExpensesEditor">
               <ManualMonthlyExpensesEditor

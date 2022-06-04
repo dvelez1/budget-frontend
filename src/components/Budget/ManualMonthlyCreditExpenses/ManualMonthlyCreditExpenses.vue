@@ -89,13 +89,17 @@
 
 <script>
 import axios from "axios";
+// Import budget store with pinia
+import { useBudgetStore } from "/src/stores/budget.js";
+// Required to use pinia store without setup()
+import { mapStores } from "pinia";
 
 export default {
   name: "ManualMonthlyCreditExpenses",
   components: {},
   data() {
     return {
-      masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
+      masMonthlyExpensesId: 0,
       manualMonthlyCreditExpense: {
         manualMonthlyCreditExpensesId: "",
         description: "",
@@ -106,7 +110,13 @@ export default {
       listmanualMonthlyCreditExpenses: [],
     };
   },
-  props: ["globalMasMonthlyExpensesId"],
+  created(){
+    this.masMonthlyExpensesId = Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId);
+  },
+  computed: {
+    //Set budget Store without setup
+    ...mapStores(useBudgetStore),
+  },
   methods: {
     GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
       this.loading = true;
@@ -163,9 +173,9 @@ export default {
           this.loading = false;
         });
     },
-    Add(){
-      this.$emit("SetManualMonthlyCreditExpensesEditorProperty",true);
-    }
+    Add() {
+      this.$emit("SetManualMonthlyCreditExpensesEditorProperty", true);
+    },
   },
   mounted() {
     this.GetManualMonthlyCreditExpenses(this.masMonthlyExpensesId);

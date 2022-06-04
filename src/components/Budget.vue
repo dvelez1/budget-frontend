@@ -137,14 +137,8 @@
               <div class="row mt-2">
                 <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
                   <ManualMonthlyCreditExpenses
-                    :globalMasMonthlyExpensesId="
-                      budgetStore.masMonthlyExpense.masMonthlyExpensesId
-                    "
-                    @SetManualMonthlyCreditExpensesEditorProperty="
-                      SetManualMonthlyCreditExpensesEditorProperty($event)
-                    "
-                    ref="ManualMonthlyCreditExpenses"
-                  />
+                    @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"
+                    ref="ManualMonthlyCreditExpenses"/>
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
@@ -358,6 +352,7 @@ export default {
       }
     },
     SetManualMonthlyCreditExpensesEditorProperty(value) {
+      // Method Pending to remove
       this.budgetStore.ManualMonthlyCreditExpensesEditor = value;
       if (value == false) {
         this.$refs.ManualMonthlyCreditExpenses.GetManualMonthlyCreditExpenses(

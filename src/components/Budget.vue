@@ -130,11 +130,7 @@
               <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
               <div class="row mt-2">
                 <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <MonthlyExpenses
-                    :globalMasMonthlyExpensesId="
-                      budgetStore.masMonthlyExpense.masMonthlyExpensesId
-                    "
-                  />
+                  <MonthlyExpenses/>
                 </div>
               </div>
               <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->

@@ -77,20 +77,9 @@ export default {
   name: "MonthlyExpenses",
   data() {
     return {
-      // shareState: store,
-      masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
-      monthlyExpense: {
-        montlyExpensesId: "",
-        masExpensesId: "",
-        masMonthlyExpensesId: "",
-        masExpensesDescription: "",
-        payment: "",
-        budget: "",
-      },
       listMonthlyExpense: [],
     };
   },
-  props: ["globalMasMonthlyExpensesId"],
   methods: {
     GetMonthlyExpenses(masMonthlyExpensesId) {
       console.log("Get Operation ID:", masMonthlyExpensesId);
@@ -120,7 +109,7 @@ export default {
         )
         .then((response) => {
           this.loading = false;
-          this.monthlyExpense = response.data;
+          this.budgetStore.monthlyExpense = response.data;
           alert("success");
         })
         .catch((error) => {
@@ -134,8 +123,7 @@ export default {
     ...mapStores(useBudgetStore),
   },
   mounted() {
-    this.GetMonthlyExpenses(this.masMonthlyExpensesId);
-    console.log("useBudgetrStore",this.budgetStore.resetFlag)
+    this.GetMonthlyExpenses(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId);
   },
 };
 </script>

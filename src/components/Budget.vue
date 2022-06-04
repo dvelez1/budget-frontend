@@ -145,14 +145,8 @@
               <div class="row">
                 <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
                   <ManualMonthlyExpenses
-                    :globalMasMonthlyExpensesId="
-                      budgetStore.masMonthlyExpense.masMonthlyExpensesId
-                    "
-                    @SetManualMonthlyExpensesEditorProperty="
-                      SetManualMonthlyExpensesEditorProperty($event)
-                    "
-                    ref="ManualMonthlyExpenses"
-                  />
+                    @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"
+                    ref="ManualMonthlyExpenses"/>
                 </div>
               </div>
             </div>

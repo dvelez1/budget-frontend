@@ -57,7 +57,7 @@ export default {
   components: {},
   data() {
     return {
-      masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
+      masMonthlyExpensesId: 0,
       manualMonthlyExpense: {
         manualMonthlyExpensesId: "",
         description: "",
@@ -67,7 +67,6 @@ export default {
       },
     };
   },
-  props: ["globalMasMonthlyExpensesId"],
   computed: {
     //Set budget Store without setup
     ...mapStores(useBudgetStore),
@@ -122,7 +121,7 @@ export default {
         });
     },
     RedirectToBudget() {
-      this.$emit("SetManualMonthlyExpensesEditorProperty", false);
+      this.budgetStore.ManualMonthlyExpensesEditor = false;
     },
   },
   mounted() {},

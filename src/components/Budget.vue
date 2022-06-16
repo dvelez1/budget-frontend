@@ -141,8 +141,12 @@
               </div>
               <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
               <div class="row mt-2">
-                <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <ManualMonthlyCreditExpenses ref="ManualMonthlyCreditExpenses"/>
+                <div
+                  v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0"
+                >
+                  <ManualMonthlyCreditExpenses
+                    ref="ManualMonthlyCreditExpenses"
+                  />
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
@@ -150,12 +154,7 @@
                 <div
                   v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0"
                 >
-                  <ManualMonthlyExpenses
-                    @SetManualMonthlyExpensesEditorProperty="
-                      SetManualMonthlyExpensesEditorProperty($event)
-                    "
-                    ref="ManualMonthlyExpenses"
-                  />
+                  <ManualMonthlyExpenses ref="ManualMonthlyExpenses" />
                 </div>
               </div>
             </div>
@@ -167,14 +166,7 @@
 
             <!-- Add New Manual Monthly Expense -->
             <div v-if="budgetStore.ManualMonthlyExpensesEditor">
-              <ManualMonthlyExpensesEditor
-                :globalMasMonthlyExpensesId="
-                  budgetStore.masMonthlyExpense.masMonthlyExpensesId
-                "
-                @SetManualMonthlyExpensesEditorProperty="
-                  SetManualMonthlyExpensesEditorProperty($event)
-                "
-              />
+              <ManualMonthlyExpensesEditor />
             </div>
 
             <!-- Create Budget Master Rules -->
@@ -250,6 +242,13 @@ export default {
     "budgetStore.ManualMonthlyCreditExpensesEditor"(newValue, oldValue) {
       if (!this.budgetStore.ManualMonthlyCreditExpensesEditor) {
         this.$refs.ManualMonthlyCreditExpenses.GetManualMonthlyCreditExpenses(
+          Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
+        );
+      }
+    },
+    "budgetStore.ManualMonthlyExpensesEditor"(newValue, oldValue) {
+      if (!this.budgetStore.ManualMonthlyExpensesEditor) {
+        this.$refs.ManualMonthlyExpenses.GetManualMonthlyExpenses(
           Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
         );
       }
@@ -358,14 +357,6 @@ export default {
           console.error(error);
           this.loading = false;
         });
-    },
-    SetManualMonthlyExpensesEditorProperty(value) {
-      this.budgetStore.ManualMonthlyExpensesEditor = value;
-      if (value == false) {
-        this.$refs.ManualMonthlyExpenses.GetManualMonthlyExpenses(
-          Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
-        );
-      }
     },
     SetCreateBudgetMasterRulesProperty(value) {
       this.budgetStore.CreateBudgetMasterRulesEditor = value;

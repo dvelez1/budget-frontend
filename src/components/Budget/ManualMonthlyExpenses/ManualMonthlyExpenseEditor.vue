@@ -8,17 +8,35 @@
             <form>
               <div class="mb-3">
                 <label class="form-label">Description</label>
-                <input v-model="manualMonthlyExpense.description" type="text" class="form-control"  />
+                <input
+                  v-model="manualMonthlyExpense.description"
+                  type="text"
+                  class="form-control"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Cost</label>
-                <input  v-model="manualMonthlyExpense.budget"  type="number" class="form-control" />
+                <input
+                  v-model="manualMonthlyExpense.budget"
+                  type="number"
+                  class="form-control"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Payment</label>
-                <input v-model="manualMonthlyExpense.payment" type="number" class="form-control"  />
+                <input
+                  v-model="manualMonthlyExpense.payment"
+                  type="number"
+                  class="form-control"
+                />
               </div>
-              <button type="submit" class="btn btn-primary" v-on:Click.prevent="CreatetManualMonthlyExpenses()">Submit</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                v-on:Click.prevent="CreatetManualMonthlyExpenses()"
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>
@@ -28,14 +46,15 @@
 </template>
 
 <script>
-
 import axios from "axios";
+// Import budget store with pinia
+import { useBudgetStore } from "/src/stores/budget.js";
+// Required to use pinia store without setup()
+import { mapStores } from "pinia";
 
 export default {
   name: "ManualMonthlyExpenseEditor",
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       masMonthlyExpensesId: Number(this.globalMasMonthlyExpensesId),
@@ -49,6 +68,14 @@ export default {
     };
   },
   props: ["globalMasMonthlyExpensesId"],
+  computed: {
+    //Set budget Store without setup
+    ...mapStores(useBudgetStore),
+  },
+  created() {
+    this.masMonthlyExpensesId =
+      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId;
+  },
   methods: {
     GetManualMonthlyExpenses(masMonthlyExpensesId) {
       this.loading = true;
@@ -59,45 +86,47 @@ export default {
           },
         })
         .then((response) => {
-          this.loading = false;
           this.listmanualMonthlyExpense = response.data;
           console.log("Success!");
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
     },
     CreatetManualMonthlyExpenses() {
       this.loading = true;
-      this.manualMonthlyExpense.manualMonthlyExpensesId = Number(this.manualMonthlyExpense.manualMonthlyExpensesId);
-      this.manualMonthlyExpense.budget = Number(this.manualMonthlyExpense.budget);
-      this.manualMonthlyExpense.payment = Number(this.manualMonthlyExpense.payment);
-      this.manualMonthlyExpense.masMonthlyExpensesId = this.masMonthlyExpensesId;
+      this.manualMonthlyExpense.manualMonthlyExpensesId = Number(
+        this.manualMonthlyExpense.manualMonthlyExpensesId
+      );
+      this.manualMonthlyExpense.budget = Number(
+        this.manualMonthlyExpense.budget
+      );
+      this.manualMonthlyExpense.payment = Number(
+        this.manualMonthlyExpense.payment
+      );
+      this.manualMonthlyExpense.masMonthlyExpensesId =
+        this.masMonthlyExpensesId;
       const manualMonthlyExpense = this.manualMonthlyExpense;
       axios
-        .post("https://localhost:44359/api/ManualMonthlyExpenses/",manualMonthlyExpense)
+        .post(
+          "https://localhost:44359/api/ManualMonthlyExpenses/",
+          manualMonthlyExpense
+        )
         .then((response) => {
-          this.loading = false;
           console.log(response.data);
           alert("success!");
           this.RedirectToBudget();
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
     },
     RedirectToBudget() {
-      this.$emit("SetManualMonthlyExpensesEditorProperty",false);
+      this.$emit("SetManualMonthlyExpensesEditorProperty", false);
     },
   },
-  mounted() {
-     
-  },
+  mounted() {},
 };
 </script>
 
-
-<style  >
-</style>
+<style></style>

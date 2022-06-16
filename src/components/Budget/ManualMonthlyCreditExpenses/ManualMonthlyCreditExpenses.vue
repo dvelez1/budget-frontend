@@ -167,7 +167,7 @@ export default {
         });
     },
     Add() {
-      this.$emit("SetManualMonthlyCreditExpensesEditorProperty", true);
+      this.budgetStore.ManualMonthlyCreditExpensesEditor = true;
     },
   },
   mounted() {

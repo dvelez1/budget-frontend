@@ -106,18 +106,16 @@ export default {
           manualMonthlyCreditExpense
         )
         .then((response) => {
-          this.loading = false;
           console.log(response.data);
           alert("success Create!");
           this.RedirectToBudget();
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
     },
     RedirectToBudget() {
-      this.$emit("SetManualMonthlyCreditExpensesEditorProperty", false);
+       this.budgetStore.ManualMonthlyCreditExpensesEditor = false;
     },
   },
   mounted() {},

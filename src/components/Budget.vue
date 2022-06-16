@@ -141,15 +141,8 @@
               </div>
               <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
               <div class="row mt-2">
-                <div
-                  v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0"
-                >
-                  <ManualMonthlyCreditExpenses
-                    @SetManualMonthlyCreditExpensesEditorProperty="
-                      SetManualMonthlyCreditExpensesEditorProperty($event)
-                    "
-                    ref="ManualMonthlyCreditExpenses"
-                  />
+                <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
+                  <ManualMonthlyCreditExpensesref="ManualMonthlyCreditExpenses"/>
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
@@ -169,9 +162,6 @@
 
             <!-- Add New Manual Credit Expense -->
             <ManualMonthlyCreditExpensesEditor
-              @SetManualMonthlyCreditExpensesEditorProperty="
-                SetManualMonthlyCreditExpensesEditorProperty($event)
-              "
               v-if="budgetStore.ManualMonthlyCreditExpensesEditor"
             />
 
@@ -254,6 +244,16 @@ export default {
     },
     // Set budget Store without setup
     ...mapStores(useBudgetStore),
+  },
+  watch: {
+    // whenever question changes, this function will run
+    "budgetStore.ManualMonthlyCreditExpensesEditor"(newValue, oldValue) {
+      if (!this.budgetStore.ManualMonthlyCreditExpensesEditor) {
+        this.$refs.ManualMonthlyCreditExpenses.GetManualMonthlyCreditExpenses(
+          Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
+        );
+      }
+    },
   },
   created() {
     this.FillYearsDropDownListModel();
@@ -363,15 +363,6 @@ export default {
       this.budgetStore.ManualMonthlyExpensesEditor = value;
       if (value == false) {
         this.$refs.ManualMonthlyExpenses.GetManualMonthlyExpenses(
-          Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
-        );
-      }
-    },
-    SetManualMonthlyCreditExpensesEditorProperty(value) {
-      // Method Pending to remove
-      this.budgetStore.ManualMonthlyCreditExpensesEditor = value;
-      if (value == false) {
-        this.$refs.ManualMonthlyCreditExpenses.GetManualMonthlyCreditExpenses(
           Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
         );
       }

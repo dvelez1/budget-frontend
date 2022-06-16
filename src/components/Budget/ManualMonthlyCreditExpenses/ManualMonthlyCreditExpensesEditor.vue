@@ -80,8 +80,9 @@ export default {
     //Set budget Store without setup
     ...mapStores(useBudgetStore),
   },
-  created(){
-    this.masMonthlyExpensesId = this.budgetStore.masMonthlyExpense.masMonthlyExpensesId;
+  created() {
+    this.masMonthlyExpensesId =
+      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId;
   },
   methods: {
     CreateManualMonthlyCreditExpenses() {
@@ -123,5 +124,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

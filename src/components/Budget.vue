@@ -69,7 +69,9 @@
                             class="form-check-input"
                             type="radio"
                             name="flexRadio-biweekly"
-                            v-model="budgetStore.masMonthlyExpense.biweeklyNumber"
+                            v-model="
+                              budgetStore.masMonthlyExpense.biweeklyNumber
+                            "
                             value="1"
                           />
                           <label
@@ -84,7 +86,9 @@
                             class="form-check-input"
                             type="radio"
                             name="flexRadio-biweekly"
-                            v-model="budgetStore.masMonthlyExpense.biweeklyNumber"
+                            v-model="
+                              budgetStore.masMonthlyExpense.biweeklyNumber
+                            "
                             value="2"
                           />
                           <label
@@ -129,32 +133,48 @@
               </div>
               <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
               <div class="row mt-2">
-                <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <MonthlyExpenses/>
+                <div
+                  v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0"
+                >
+                  <MonthlyExpenses />
                 </div>
               </div>
               <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
               <div class="row mt-2">
-                <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
+                <div
+                  v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0"
+                >
                   <ManualMonthlyCreditExpenses
-                    @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"
-                    ref="ManualMonthlyCreditExpenses"/>
+                    @SetManualMonthlyCreditExpensesEditorProperty="
+                      SetManualMonthlyCreditExpensesEditorProperty($event)
+                    "
+                    ref="ManualMonthlyCreditExpenses"
+                  />
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->
               <div class="row">
-                <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
+                <div
+                  v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0"
+                >
                   <ManualMonthlyExpenses
-                    @SetManualMonthlyExpensesEditorProperty="SetManualMonthlyExpensesEditorProperty($event)"
-                    ref="ManualMonthlyExpenses"/>
+                    @SetManualMonthlyExpensesEditorProperty="
+                      SetManualMonthlyExpensesEditorProperty($event)
+                    "
+                    ref="ManualMonthlyExpenses"
+                  />
                 </div>
               </div>
             </div>
 
             <!-- Add New Manual Credit Expense -->
             <ManualMonthlyCreditExpensesEditor
-              @SetManualMonthlyCreditExpensesEditorProperty="SetManualMonthlyCreditExpensesEditorProperty($event)"
-              v-if="budgetStore.ManualMonthlyCreditExpensesEditor"/>
+              @SetManualMonthlyCreditExpensesEditorProperty="
+                SetManualMonthlyCreditExpensesEditorProperty($event)
+              "
+              v-if="budgetStore.ManualMonthlyCreditExpensesEditor"
+            />
+
             <!-- Add New Manual Monthly Expense -->
             <div v-if="budgetStore.ManualMonthlyExpensesEditor">
               <ManualMonthlyExpensesEditor
@@ -192,19 +212,19 @@ import ManualMonthlyCreditExpensesEditor from "./Budget/ManualMonthlyCreditExpen
 import MasMonthlyExpensesEditor from "./Budget/MasMonthlyExpenses/MasMonthlyExpensesEditor.vue";
 
 // Import budget store with pinia
-import {useBudgetStore} from "../stores/budget.js";
+import { useBudgetStore } from "../stores/budget.js";
 // Required to use pinia store without setup()
-import { mapStores } from 'pinia'
+import { mapStores } from "pinia";
 
 export default {
-  name:"Budget",
+  name: "Budget",
   components: {
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
     MonthlyExpenses,
     ManualMonthlyExpensesEditor,
     ManualMonthlyCreditExpensesEditor,
-    MasMonthlyExpensesEditor
+    MasMonthlyExpensesEditor,
   },
   data() {
     return {
@@ -219,28 +239,29 @@ export default {
       Years: [],
       ManualMonthlyExpensesEditor: false,
       ManualMonthlyCreditExpensesEditor: false,
-      CreateBudgetMasterRulesEditor:false,
+      CreateBudgetMasterRulesEditor: false,
       Shared: this.$store, // Add Custom Store Example
     };
   },
   computed: {
     DisplayMainScreen() {
-      let result = this.budgetStore.ManualMonthlyExpensesEditor == false &&
-       this.budgetStore.ManualMonthlyCreditExpensesEditor == false &&
-      this.budgetStore.CreateBudgetMasterRulesEditor == false;
+      let result =
+        this.budgetStore.ManualMonthlyExpensesEditor == false &&
+        this.budgetStore.ManualMonthlyCreditExpensesEditor == false &&
+        this.budgetStore.CreateBudgetMasterRulesEditor == false;
 
       return result;
     },
     // Set budget Store without setup
-     ...mapStores(useBudgetStore)
+    ...mapStores(useBudgetStore),
   },
   created() {
     this.FillYearsDropDownListModel();
   },
   mounted() {
-    console.log("useBudgetStore",this.budgetStore.resetFlag)
-    this.budgetStore.setresetFlag(true)
-    console.log("set to true",this.budgetStore.resetFlag )
+    console.log("useBudgetStore", this.budgetStore.resetFlag);
+    this.budgetStore.setresetFlag(true);
+    console.log("set to true", this.budgetStore.resetFlag);
   },
   methods: {
     GetMasMonthlyExpensesByParameters() {
@@ -251,7 +272,9 @@ export default {
       this.budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
         this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
       );
-      this.budgetStore.masMonthlyExpense.income = Number(this.budgetStore.masMonthlyExpense.income);
+      this.budgetStore.masMonthlyExpense.income = Number(
+        this.budgetStore.masMonthlyExpense.income
+      );
       const masMonthlyExpense = this.budgetStore.masMonthlyExpense;
       axios
         .post(
@@ -275,7 +298,9 @@ export default {
       this.budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
         this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
       );
-      this.budgetStore.masMonthlyExpense.income = Number(this.budgetStore.masMonthlyExpense.income);
+      this.budgetStore.masMonthlyExpense.income = Number(
+        this.budgetStore.masMonthlyExpense.income
+      );
       const masMonthlyExpense = this.budgetStore.masMonthlyExpense;
       axios
         .post(
@@ -285,7 +310,9 @@ export default {
         .then((response) => {
           this.loading = false;
           this.budgetStore.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId);
+          this.GetMonthlyExpenses(
+            this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+          );
         })
         .catch((error) => {
           console.error(error);
@@ -303,7 +330,9 @@ export default {
         .then((response) => {
           this.loading = false;
           this.budgetStore.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId);
+          this.GetMonthlyExpenses(
+            this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+          );
         })
         .catch((error) => {
           console.error(error);
@@ -348,20 +377,15 @@ export default {
       }
     },
     SetCreateBudgetMasterRulesProperty(value) {
-       this.budgetStore.CreateBudgetMasterRulesEditor = value;
-       //Access by ref Master Rules, to refresh or trigger my page
+      this.budgetStore.CreateBudgetMasterRulesEditor = value;
+      //Access by ref Master Rules, to refresh or trigger my page
     },
     ResetControls() {
       // Refresh Budget Page
       this.$router.go();
     },
   },
-
 };
 </script>
 
-
-
-
-<style >
-</style>
+<style></style>

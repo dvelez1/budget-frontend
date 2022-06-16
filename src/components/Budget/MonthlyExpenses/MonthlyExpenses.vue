@@ -67,23 +67,21 @@
 
 <script>
 import axios from "axios";
+import { ref, onMounted } from "vue";
 
 // Import budget store with pinia
-import { useBudgetStore } from "/src/stores/budget.js"; 
-// Required to use pinia store without setup()
-import { mapStores } from "pinia";
+import { useBudgetStore } from "/src/stores/budget.js";
 
 export default {
   name: "MonthlyExpenses",
-  data() {
-    return {
-      listMonthlyExpense: [],
-    };
-  },
-  methods: {
-    GetMonthlyExpenses(masMonthlyExpensesId) {
-      console.log("Get Operation ID:", masMonthlyExpensesId);
-      this.loading = true;
+
+  setup() {
+    // initialize  pinia store on const
+    const budgetStore = useBudgetStore();
+    // Declare variable
+    const listMonthlyExpense = ref([]);
+
+    function GetMonthlyExpenses(masMonthlyExpensesId) {
       axios
         .get("https://localhost:44359/api/MonthlyExpenses/", {
           params: {
@@ -91,42 +89,43 @@ export default {
           },
         })
         .then((response) => {
-          this.loading = false;
-          this.listMonthlyExpense = response.data;
-          console.log("MonthlyExpenses Success");
+          console.log("List",response.data)
+          listMonthlyExpense.value = response.data;
+          console.log("Get Operation for MonthlyExpenses Success");
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
-    },
-    UpdateMonthlyExpenses(monthlyExpense, montlyExpensesId) {
-      this.loading = true;
+    }
+
+    function UpdateMonthlyExpenses(monthlyExpense, montlyExpensesId) {
       axios
         .put(
           "https://localhost:44359/api/MonthlyExpenses/" + montlyExpensesId,
           monthlyExpense
         )
         .then((response) => {
-          this.loading = false;
-          this.budgetStore.monthlyExpense = response.data;
+          budgetStore.monthlyExpense = response.data;
           alert("success");
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
-    },
-  },
-  computed: {
-    //Set budget Store without setup
-    ...mapStores(useBudgetStore),
-  },
-  mounted() {
-    this.GetMonthlyExpenses(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId);
-  },
+    }
+
+    onMounted(() => {
+      GetMonthlyExpenses(
+        budgetStore.masMonthlyExpense.masMonthlyExpensesId
+      );
+    });
+
+    return {
+      listMonthlyExpense,
+      UpdateMonthlyExpenses
+    };
+  }
+
 };
 </script>
 
-<style>
-</style>
+<style></style>

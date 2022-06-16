@@ -110,8 +110,10 @@ export default {
       listmanualMonthlyCreditExpenses: [],
     };
   },
-  created(){
-    this.masMonthlyExpensesId = Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId);
+  created() {
+    this.masMonthlyExpensesId = Number(
+      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+    );
   },
   computed: {
     //Set budget Store without setup
@@ -119,7 +121,6 @@ export default {
   },
   methods: {
     GetManualMonthlyCreditExpenses(masMonthlyExpensesId) {
-      this.loading = true;
       axios
         .get("https://localhost:44359/api/ManualMonthlyCreditExpenses/", {
           params: {
@@ -127,19 +128,16 @@ export default {
           },
         })
         .then((response) => {
-          this.loading = false;
           this.listmanualMonthlyCreditExpenses = response.data;
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
     },
     UpdateManualMonthlyCreditExpenses(
       manualMonthlyCreditExpensesId,
       manualMonthlyCreditExpense
     ) {
-      this.loading = true;
       axios
         .put(
           "https://localhost:44359/api/ManualMonthlyCreditExpenses/" +
@@ -147,30 +145,25 @@ export default {
           manualMonthlyCreditExpense
         )
         .then((response) => {
-          this.loading = false;
           this.manualMonthlyCreditExpense = response.data;
           alert("success!");
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
     },
     DeleteManualMonthlyCreditExpenses(manualMonthlyCreditExpensesId) {
-      this.loading = true;
       axios
         .delete(
           "https://localhost:44359/api/ManualMonthlyCreditExpenses/" +
             manualMonthlyCreditExpensesId
         )
         .then((response) => {
-          this.loading = false;
           this.manualMonthlyCreditExpense = response.data;
           this.GetManualMonthlyCreditExpenses(this.masMonthlyExpensesId);
         })
         .catch((error) => {
           console.log(error);
-          this.loading = false;
         });
     },
     Add() {
@@ -183,5 +176,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -21,20 +21,6 @@ const store = {
 
 }
 
-// const store = {
-//   debug: true,
-
-//   state: reactive({
-//     message: 'Hello!',
-//     val: 1,
-//     message2: computed(() => store.state.val + 1),
-//   }),
-
-//   increment() {
-//     this.state.val++
-//   }
-
-// }
 
 export { store }
 

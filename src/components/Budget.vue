@@ -142,7 +142,7 @@
               <!-- CREDIT EXPENSES Get/Edit/Delete: Done Pending Create-->
               <div class="row mt-2">
                 <div v-if="budgetStore.masMonthlyExpense.masMonthlyExpensesId > 0">
-                  <ManualMonthlyCreditExpensesref="ManualMonthlyCreditExpenses"/>
+                  <ManualMonthlyCreditExpenses ref="ManualMonthlyCreditExpenses"/>
                 </div>
               </div>
               <!-- ADDITIONAL Montlhy EXPENSES - Get/Edit/Delete: Done Pending Create -->

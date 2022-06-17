@@ -12,128 +12,7 @@
             <hr />
             <div v-show="DisplayMainScreen">
               <!-- Master Selection TODO: Pending Create Child Component-->
-              <!-- <MasMonthlyExpenses /> -->
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="row g-2">
-                        <div class="col-sm-11">
-                          <h5 class="card-title text-center">
-                            Biweekly Selection
-                          </h5>
-                        </div>
-                        <div class="col-sm-1">
-                          <button
-                            class="btn btn-dark btn-sm mt-2"
-                            v-on:click="
-                              SetCreateBudgetMasterRulesProperty(true)
-                            "
-                            type="button"
-                          >
-                            Add Master Rule
-                          </button>
-                        </div>
-                      </div>
-                      <hr />
-
-                      <div class="form-group">
-                        <label for="year"><h6>Year</h6></label>
-                        <select
-                          class="form-control"
-                          v-model="budgetStore.masMonthlyExpense.year"
-                        >
-                          <option
-                            :value="year.text"
-                            v-for="year in budgetStore.Years"
-                            :key="year.id"
-                          >
-                            {{ year.text }}
-                          </option>
-                        </select>
-                      </div>
-
-                      <div class="form-group mt-2">
-                        <label for="month"><h6>Month</h6></label>
-                        <input
-                          v-model="budgetStore.masMonthlyExpense.month"
-                          type="number"
-                          class="form-control"
-                          placeholder="Enter Month"
-                        />
-                      </div>
-
-                      <h6 class="mt-2">Biweekly</h6>
-                      <div class="mt-2">
-                        <div class="form-check form-check-inline">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="flexRadio-biweekly"
-                            v-model="
-                              budgetStore.masMonthlyExpense.biweeklyNumber
-                            "
-                            value="1"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="flexRadio-biweekly-1"
-                          >
-                            1
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="flexRadio-biweekly"
-                            v-model="
-                              budgetStore.masMonthlyExpense.biweeklyNumber
-                            "
-                            value="2"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="flexRadio-biweekly-2"
-                          >
-                            2
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="form-group mt-2">
-                        <label for="budget"><h6>Budget</h6></label>
-                        <input
-                          v-model="budgetStore.masMonthlyExpense.income"
-                          type="number"
-                          class="form-control"
-                          placeholder="Enter Budget"
-                        />
-                      </div>
-
-                      <div class="float-end">
-                        <button
-                          class="btn btn-dark btn-sm mt-2"
-                          v-on:click="GetMasMonthlyExpensesByParameters()"
-                          type="button"
-                        >
-                          Search
-                        </button>
-                        &nbsp;
-                        <button
-                          class="btn btn-secondary btn-sm mt-2"
-                          v-on:click="ResetControls()"
-                          type="button"
-                        >
-                          Reset
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>  
-
+             <MasMonthlyExpenses /> 
               <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
               <div class="row mt-2">
                 <div
@@ -177,6 +56,7 @@
               v-if="budgetStore.CreateBudgetMasterRulesEditor"
               ref="MasMonthlyExpensesEditor"
             />
+
           </div>
         </div>
       </div>
@@ -186,7 +66,7 @@
 
 <script>
 import axios from "axios";
-import MasMonthlyExpenses from "./Budget/MasMonthlyExpenses/MasMonthlyExpenses.vue";
+import MasMonthlyExpenses from "./Budget/MasMonthlyExpenses/MasMonthlyExpenses.vue"; // Added
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
@@ -202,7 +82,7 @@ import { mapStores } from "pinia";
 export default {
   name: "Budget",
   components: {
-    MasMonthlyExpenses,
+    MasMonthlyExpenses, 
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
     MonthlyExpenses,
@@ -212,14 +92,6 @@ export default {
   },
   data() {
     return {
-      masMonthlyExpense: {
-        masMonthlyExpensesId: "",
-        year: "",
-        month: "",
-        income: "",
-        biweeklyNumber: "",
-      },
-      Years: [],
       Shared: this.$store, // Add Custom Store Example
     };
   },
@@ -250,108 +122,6 @@ export default {
           Number(this.budgetStore.masMonthlyExpense.masMonthlyExpensesId)
         );
       }
-    },
-  },
-  created() {
-    this.FillYearsDropDownListModel();
-  },
-  mounted() {},
-  methods: {
-    GetMasMonthlyExpensesByParameters() {
-      this.loading = true;
-      this.budgetStore.masMonthlyExpense.biweeklyNumber = Number(
-        this.budgetStore.masMonthlyExpense.biweeklyNumber
-      );
-      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
-        this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
-      );
-      this.budgetStore.masMonthlyExpense.income = Number(
-        this.budgetStore.masMonthlyExpense.income
-      );
-      const masMonthlyExpense = this.budgetStore.masMonthlyExpense;
-      axios
-        .post(
-          "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",
-          masMonthlyExpense
-        )
-        .then((response) => {
-          this.loading = false;
-          this.budgetStore.masMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-
-    //TODO: Method not in use in this component
-    CreatetMasMonthlyExpenses() {
-      this.loading = true;
-      this.budgetStore.masMonthlyExpense.biweeklyNumber = Number(
-        this.budgetStore.masMonthlyExpense.biweeklyNumber
-      );
-      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
-        this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
-      );
-      this.budgetStore.masMonthlyExpense.income = Number(
-        this.budgetStore.masMonthlyExpense.income
-      );
-      const masMonthlyExpense = this.budgetStore.masMonthlyExpense;
-      axios
-        .post(
-          "https://localhost:44359/api/MasMonthlyExpenses/CreatetMasMonthlyExpenses/",
-          masMonthlyExpense
-        )
-        .then((response) => {
-          this.loading = false;
-          this.budgetStore.masMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    //TODO: Method not in use in this component
-    UpdatetMasMonthlyExpenses(masMonthlyExpensesId, masMonthlyExpense) {
-      this.loading = true;
-      axios
-        .put(
-          "https://localhost:44359/api/MasMonthlyExpenses/" +
-            masMonthlyExpensesId,
-          masMonthlyExpense
-        )
-        .then((response) => {
-          this.loading = false;
-          this.budgetStore.masMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-          this.loading = false;
-        });
-    },
-    FillYearsDropDownListModel() {
-      axios
-        .get(
-          "https://localhost:44359/api/MasMonthlyExpenses/GetYearWithBudget/"
-        )
-        .then((response) => {
-          response.data.forEach((item) => {
-            this.budgetStore.Years.push({
-              id: item.year,
-              text: item.year,
-            });
-          });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    SetCreateBudgetMasterRulesProperty(value) {
-      this.budgetStore.CreateBudgetMasterRulesEditor = value;
-    },
-    ResetControls() {
-      // Refresh Budget Page
-      this.$router.go();
     },
   },
 };

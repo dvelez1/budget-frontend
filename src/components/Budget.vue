@@ -12,6 +12,8 @@
             <hr />
             <div v-show="DisplayMainScreen">
               <!-- Master Selection TODO: Pending Create Child Component-->
+              <!-- <MasMonthlyExpenses /> -->
+
               <div class="row">
                 <div class="col-md-12">
                   <div class="card">
@@ -130,7 +132,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>  
+
               <!-- Budget -> MonthlyExpenses Get/Edit: Done Pending Create -->
               <div class="row mt-2">
                 <div
@@ -183,6 +186,7 @@
 
 <script>
 import axios from "axios";
+import MasMonthlyExpenses from "./Budget/MasMonthlyExpenses/MasMonthlyExpenses.vue";
 import MonthlyExpenses from "./Budget/MonthlyExpenses/MonthlyExpenses";
 import ManualMonthlyExpenses from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenses";
 import ManualMonthlyExpensesEditor from "./Budget/ManualMonthlyExpenses/ManualMonthlyExpenseEditor.vue";
@@ -198,6 +202,7 @@ import { mapStores } from "pinia";
 export default {
   name: "Budget",
   components: {
+    MasMonthlyExpenses,
     ManualMonthlyExpenses,
     ManualMonthlyCreditExpenses,
     MonthlyExpenses,
@@ -278,6 +283,8 @@ export default {
           this.loading = false;
         });
     },
+
+    //TODO: Method not in use in this component
     CreatetMasMonthlyExpenses() {
       this.loading = true;
       this.budgetStore.masMonthlyExpense.biweeklyNumber = Number(
@@ -298,15 +305,13 @@ export default {
         .then((response) => {
           this.loading = false;
           this.budgetStore.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(
-            this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
-          );
         })
         .catch((error) => {
           console.error(error);
           this.loading = false;
         });
     },
+    //TODO: Method not in use in this component
     UpdatetMasMonthlyExpenses(masMonthlyExpensesId, masMonthlyExpense) {
       this.loading = true;
       axios
@@ -318,9 +323,6 @@ export default {
         .then((response) => {
           this.loading = false;
           this.budgetStore.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(
-            this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
-          );
         })
         .catch((error) => {
           console.error(error);

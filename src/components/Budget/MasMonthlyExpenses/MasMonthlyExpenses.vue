@@ -20,7 +20,7 @@
           </div>
           <hr />
 
-          <div class="form-group">
+        <div class="form-group">
             <label for="year"><h6>Year</h6></label>
             <select
               class="form-control"
@@ -34,7 +34,7 @@
                 {{ year.text }}
               </option>
             </select>
-          </div>
+          </div> 
 
           <div class="form-group mt-2">
             <label for="month"><h6>Month</h6></label>
@@ -109,10 +109,10 @@
 
 <script>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 
 // Import budget store with pinia
-import { useBudgetStore } from "/src/stores/budget.js";
+import { useBudgetStore } from "/src/stores/budget.js"
 
 export default {
   name: "MasMonthlyExpenses",
@@ -163,9 +163,9 @@ export default {
         )
         .then((response) => {
           budgetStore.masMonthlyExpense = response.data;
-          GetMonthlyExpenses(
-            budgetStore.masMonthlyExpense.masMonthlyExpensesId
-          );
+          // GetMonthlyExpenses(
+          //   budgetStore.masMonthlyExpense.masMonthlyExpensesId
+          // );
         })
         .catch((error) => {
           console.error(error);
@@ -184,9 +184,9 @@ export default {
         )
         .then((response) => {
           budgetStore.masMonthlyExpense = response.data;
-          GetMonthlyExpenses(
-            budgetStore.masMonthlyExpense.masMonthlyExpensesId
-          );
+          // GetMonthlyExpenses(
+          //   budgetStore.masMonthlyExpense.masMonthlyExpensesId
+          // );
         })
         .catch((error) => {
 
@@ -227,7 +227,8 @@ export default {
     // });
 
     onMounted(() => {
-      GetMonthlyExpenses(budgetStore.masMonthlyExpense.masMonthlyExpensesId);
+      alert("Voy a subir")
+      FillYearsDropDownListModel();
     });
 
     return {

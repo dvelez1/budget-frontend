@@ -55,6 +55,7 @@
         >
           Submit
         </button>
+        &nbsp;
         <button
           type="submit"
           class="btn btn-secondary"
@@ -86,7 +87,6 @@ export default {
         budgetStore.masMonthlyExpense
       );
       const masMonthlyExpense = budgetStore.masMonthlyExpense;
-      console.log("masMonthlyExpense", masMonthlyExpense);
       axios
         .post(
           "https://localhost:44359/api/MasMonthlyExpenses/CreateMasMonthlyExpenses/",

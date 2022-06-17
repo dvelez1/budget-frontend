@@ -89,7 +89,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log("List",response.data)
           listMonthlyExpense.value = response.data;
           console.log("Get Operation for MonthlyExpenses Success");
         })

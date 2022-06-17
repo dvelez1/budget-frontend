@@ -217,11 +217,7 @@ export default {
         income: "",
         biweeklyNumber: "",
       },
-      resetFlag: false,
       Years: [],
-      ManualMonthlyExpensesEditor: false,
-      ManualMonthlyCreditExpensesEditor: false,
-      CreateBudgetMasterRulesEditor: false,
       Shared: this.$store, // Add Custom Store Example
     };
   },

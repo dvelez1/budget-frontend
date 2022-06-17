@@ -16,7 +16,8 @@ export default {
     const budget = useBudgetStore();
 
      return {
-      counterStore
+      counterStore,
+      budget
     }
 
   },

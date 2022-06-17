@@ -120,6 +120,7 @@ export default {
     });
 
     return {
+      budgetStore,
       listMonthlyExpense,
       UpdateMonthlyExpenses
     };

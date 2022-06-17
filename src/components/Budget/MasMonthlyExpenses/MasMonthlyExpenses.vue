@@ -116,72 +116,66 @@ import { useBudgetStore } from "/src/stores/budget.js";
 
 export default {
   name: "MasMonthlyExpenses",
+
   setup() {
     // initialize  pinia store on const
     const budgetStore = useBudgetStore();
-    // Declare variable
-    const listMonthlyExpense = ref([]);
-    
 
     function GetMasMonthlyExpensesByParameters() {
-      this.loading = true;
-      this.budgetStore.masMonthlyExpense.biweeklyNumber = Number(
-        this.budgetStore.masMonthlyExpense.biweeklyNumber
+      budgetStore.masMonthlyExpense.biweeklyNumber = Number(
+        budgetStore.masMonthlyExpense.biweeklyNumber
       );
-      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
-        this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+      budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
+        budgetStore.masMonthlyExpense.masMonthlyExpensesId
       );
-      this.budgetStore.masMonthlyExpense.income = Number(
-        this.budgetStore.masMonthlyExpense.income
+      budgetStore.masMonthlyExpense.income = Number(
+        budgetStore.masMonthlyExpense.income
       );
-      const masMonthlyExpense = this.budgetStore.masMonthlyExpense;
+      const masMonthlyExpense = budgetStore.masMonthlyExpense;
       axios
         .post(
           "https://localhost:44359/api/MasMonthlyExpenses/GetMasMonthlyExpensesByParameters/",
           masMonthlyExpense
         )
         .then((response) => {
-          this.loading = false;
-          this.budgetStore.masMonthlyExpense = response.data;
+          budgetStore.masMonthlyExpense = response.data;
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
-    };
+    }
 
     function CreatetMasMonthlyExpenses() {
-      this.loading = true;
-      this.budgetStore.masMonthlyExpense.biweeklyNumber = Number(
-        this.budgetStore.masMonthlyExpense.biweeklyNumber
+      budgetStore.masMonthlyExpense.biweeklyNumber = Number(
+        budgetStore.masMonthlyExpense.biweeklyNumber
       );
-      this.budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
-        this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+      budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
+        budgetStore.masMonthlyExpense.masMonthlyExpensesId
       );
-      this.budgetStore.masMonthlyExpense.income = Number(
-        this.budgetStore.masMonthlyExpense.income
+      budgetStore.masMonthlyExpense.income = Number(
+        budgetStore.masMonthlyExpense.income
       );
-      const masMonthlyExpense = this.budgetStore.masMonthlyExpense;
+      const masMonthlyExpense = budgetStore.masMonthlyExpense;
       axios
         .post(
           "https://localhost:44359/api/MasMonthlyExpenses/CreatetMasMonthlyExpenses/",
           masMonthlyExpense
         )
         .then((response) => {
-          this.loading = false;
-          this.budgetStore.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(
-            this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+          budgetStore.masMonthlyExpense = response.data;
+          GetMonthlyExpenses(
+            budgetStore.masMonthlyExpense.masMonthlyExpensesId
           );
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
-    };
+    }
 
-    function UpdatetMasMonthlyExpenses(masMonthlyExpensesId, masMonthlyExpense) {
-      this.loading = true;
+    function UpdatetMasMonthlyExpenses(
+      masMonthlyExpensesId,
+      masMonthlyExpense
+    ) {
       axios
         .put(
           "https://localhost:44359/api/MasMonthlyExpenses/" +
@@ -189,28 +183,24 @@ export default {
           masMonthlyExpense
         )
         .then((response) => {
-          this.loading = false;
-          this.budgetStore.masMonthlyExpense = response.data;
-          this.GetMonthlyExpenses(
-            this.budgetStore.masMonthlyExpense.masMonthlyExpensesId
+          budgetStore.masMonthlyExpense = response.data;
+          GetMonthlyExpenses(
+            budgetStore.masMonthlyExpense.masMonthlyExpensesId
           );
         })
         .catch((error) => {
-          console.error(error);
-          this.loading = false;
+
         });
-    };
+    }
 
     function FillYearsDropDownListModel() {
-      this.loading = true;
       axios
         .get(
           "https://localhost:44359/api/MasMonthlyExpenses/GetYearWithBudget/"
         )
         .then((response) => {
-          this.loading = false;
           response.data.forEach((item) => {
-            this.budgetStore.Years.push({
+            budgetStore.Years.push({
               id: item.year,
               text: item.year,
             });
@@ -218,29 +208,35 @@ export default {
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
-    };
+    }
 
-    function  SetCreateBudgetMasterRulesProperty(value) {
-      this.budgetStore.CreateBudgetMasterRulesEditor = value;
+    function SetCreateBudgetMasterRulesProperty(value) {
+      budgetStore.CreateBudgetMasterRulesEditor = value;
       //Access by ref Master Rules, to refresh or trigger my page
-    };
+    }
 
     function ResetControls() {
       // Refresh Budget Page
       this.$router.go();
-    };
+    }
 
-
+    // Not Composition API HOOK
+    // onCreated(() => {
+    //   FillYearsDropDownListModel();
+    // });
 
     onMounted(() => {
       GetMonthlyExpenses(budgetStore.masMonthlyExpense.masMonthlyExpensesId);
     });
 
     return {
-      listMonthlyExpense,
-      UpdateMonthlyExpenses,
+      GetMasMonthlyExpensesByParameters,
+      CreatetMasMonthlyExpenses,
+      UpdatetMasMonthlyExpenses,
+      FillYearsDropDownListModel,
+      SetCreateBudgetMasterRulesProperty,
+      ResetControls,
     };
   },
 };

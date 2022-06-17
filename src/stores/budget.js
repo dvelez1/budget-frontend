@@ -4,8 +4,8 @@ export const useBudgetStore = defineStore('budget', {
     // other options...
     state: () => ({
         masMonthlyExpense: {
-            masMonthlyExpensesId: "",
-            year: "",
+            masMonthlyExpensesId: 0,
+            year: 0,
             month: "",
             income: "",
             biweeklyNumber: "",

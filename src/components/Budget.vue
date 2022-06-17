@@ -171,9 +171,6 @@
 
             <!-- Create Budget Master Rules -->
             <MasMonthlyExpensesEditor
-              @SetCreateBudgetMasterRulesProperty="
-                SetCreateBudgetMasterRulesProperty($event)
-              "
               v-if="budgetStore.CreateBudgetMasterRulesEditor"
               ref="MasMonthlyExpensesEditor"
             />
@@ -253,11 +250,7 @@ export default {
   created() {
     this.FillYearsDropDownListModel();
   },
-  mounted() {
-    console.log("useBudgetStore", this.budgetStore.resetFlag);
-    this.budgetStore.setresetFlag(true);
-    console.log("set to true", this.budgetStore.resetFlag);
-  },
+  mounted() {},
   methods: {
     GetMasMonthlyExpensesByParameters() {
       this.loading = true;
@@ -335,13 +328,11 @@ export default {
         });
     },
     FillYearsDropDownListModel() {
-      this.loading = true;
       axios
         .get(
           "https://localhost:44359/api/MasMonthlyExpenses/GetYearWithBudget/"
         )
         .then((response) => {
-          this.loading = false;
           response.data.forEach((item) => {
             this.budgetStore.Years.push({
               id: item.year,
@@ -351,12 +342,10 @@ export default {
         })
         .catch((error) => {
           console.error(error);
-          this.loading = false;
         });
     },
     SetCreateBudgetMasterRulesProperty(value) {
       this.budgetStore.CreateBudgetMasterRulesEditor = value;
-      //Access by ref Master Rules, to refresh or trigger my page
     },
     ResetControls() {
       // Refresh Budget Page

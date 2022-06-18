@@ -129,7 +129,6 @@ export default {
   setup() {
     // initialize  pinia store on const
     const budgetStore = useBudgetStore();
-    const incomeOnMount = ref(0);
 
     function GetMasMonthlyExpensesByParameters() {
       // budgetStore.masMonthlyExpense.biweeklyNumber = Number(
@@ -160,34 +159,6 @@ export default {
         });
     }
 
-    // TODO: Used in another component
-    function CreatetMasMonthlyExpenses() {
-      // budgetStore.masMonthlyExpense.biweeklyNumber = Number(
-      //   budgetStore.masMonthlyExpense.biweeklyNumber
-      // );
-      // budgetStore.masMonthlyExpense.masMonthlyExpensesId = Number(
-      //   budgetStore.masMonthlyExpense.masMonthlyExpensesId
-      // );
-      // budgetStore.masMonthlyExpense.income = Number(
-      //   budgetStore.masMonthlyExpense.income
-      // );
-
-      budgetStore.normalizationOfMasMonthlyExpenseModel();
-      const masMonthlyExpense = budgetStore.masMonthlyExpense;
-
-      axios
-        .post(
-          "https://localhost:44359/api/MasMonthlyExpenses/CreatetMasMonthlyExpenses/",
-          masMonthlyExpense
-        )
-        .then((response) => {
-          budgetStore.masMonthlyExpense = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-
     function UpdatetMasMonthlyExpenses() {
       budgetStore.normalizationOfMasMonthlyExpenseModel();
 
@@ -199,11 +170,11 @@ export default {
       axios
         .put(
           "https://localhost:44359/api/MasMonthlyExpenses/" +
-            masMonthlyExpensesId,
-          masMonthlyExpense
+            masMonthlyExpensesId, masMonthlyExpense
         )
         .then((response) => {
           budgetStore.masMonthlyExpense = response.data;
+          alert("Income Edited Successfully")
         })
         .catch((error) => {});
     }
@@ -238,13 +209,11 @@ export default {
     onMounted(() => {
       if (budgetStore.Years.length != 0) budgetStore.Years = [];
       FillYearsDropDownListModel();
-      incomeOnMount.value = budgetStore.masMonthlyExpense.income;
     });
 
     return {
       budgetStore,
       GetMasMonthlyExpensesByParameters,
-      CreatetMasMonthlyExpenses,
       UpdatetMasMonthlyExpenses,
       FillYearsDropDownListModel,
       SetCreateBudgetMasterRulesProperty,

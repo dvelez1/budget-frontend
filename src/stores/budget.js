@@ -36,18 +36,15 @@ export const useBudgetStore = defineStore("budget", {
     },
 
     normalizationOfMasMonthlyExpenseModel() {
-      this.masMonthlyExpense.biweeklyNumber = Number(
-        this.masMonthlyExpense.biweeklyNumber
-      );
-
       this.masMonthlyExpense.masMonthlyExpensesId = Number(
         this.masMonthlyExpense.masMonthlyExpensesId
       );
-      this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
-
       this.masMonthlyExpense.year = Number(this.masMonthlyExpense.year);
-
       this.masMonthlyExpense.month = Number(this.masMonthlyExpense.month);
+      this.masMonthlyExpense.income = Number(this.masMonthlyExpense.income);
+      this.masMonthlyExpense.biweeklyNumber = Number(
+        this.masMonthlyExpense.biweeklyNumber
+      );
     },
 
   },

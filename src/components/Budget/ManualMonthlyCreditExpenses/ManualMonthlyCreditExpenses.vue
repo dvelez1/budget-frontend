@@ -6,12 +6,14 @@
           <h5 class="card-title text-center">Credit Expenses</h5>
         </div>
         <div class="col-sm-1">
-          <input
+          <h4><span role="button" class="badge rounded-pill bg-dark float-end"  v-on:click="Add()">Add </span></h4>
+          <!-- <input
             class="btn btn-dark btn-sm float-end"
             type="button"
             value="Add"
             v-on:click="Add()"
-          />
+          /> -->
+
         </div>
       </div>
 
@@ -22,9 +24,9 @@
           v-for="(
             manualMonthlyCreditExpense, index
           ) of listmanualMonthlyCreditExpenses"
-          :key="index"
-          class="list-group-item d-flex justify-content-between"
-        >
+          :key="index" class="list-group-item d-flex justify-content-between">
+
+
           <div>
             {{ manualMonthlyCreditExpense.manualMonthlyCreditExpensesId }}
             -

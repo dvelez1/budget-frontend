@@ -84,7 +84,7 @@
                 aria-label="Enter Budget"
               />
               <button
-                class="btn btn-outline-secondary"
+                class="btn btn-dark "
                 type="button"
                 v-on:click="UpdatetMasMonthlyExpenses()"
               >
